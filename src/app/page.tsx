@@ -29,7 +29,7 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
+  DialogClose,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
@@ -208,9 +208,13 @@ export default function Home() {
 
         <Dialog open={!!selectedImage} onOpenChange={(isOpen) => !isOpen && setSelectedImage(null)}>
             {selectedImage && (
-                <DialogContent className="p-0 border-0 max-w-4xl bg-transparent shadow-none">
-                    <div className="relative aspect-video w-full">
-                        <Image src={selectedImage.imageUrl} alt={selectedImage.description} fill className="object-contain rounded-lg" data-ai-hint={selectedImage.imageHint}/>
+                <DialogContent className="max-w-none w-screen h-screen p-0 border-0 bg-black/80 flex items-center justify-center">
+                    <DialogClose className="absolute right-4 top-4 z-50 rounded-full bg-white/20 p-2 text-white opacity-80 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                        <X className="h-6 w-6" />
+                        <span className="sr-only">Close</span>
+                    </DialogClose>
+                    <div className="relative w-full h-full">
+                        <Image src={selectedImage.imageUrl} alt={selectedImage.description} fill className="object-contain" data-ai-hint={selectedImage.imageHint}/>
                     </div>
                 </DialogContent>
             )}
