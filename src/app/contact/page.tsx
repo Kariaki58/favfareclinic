@@ -1,4 +1,5 @@
-import { Metadata } from 'next';
+"use client"
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { z } from 'zod';
@@ -12,15 +13,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Mail, MapPin, Phone, Clock } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with Precision Dental. Find our location, hours, and contact information, or send us a message directly.',
-};
+// Metadata for a client component should be handled in a parent layout or page.
+// We can't export it from here. We'll rely on the root layout's metadata.
 
-
-// This would be a client component in a real app to handle form state
 const ContactForm = () => {
-    "use client"
     const formSchema = z.object({
         name: z.string().min(2, { message: "Name must be at least 2 characters." }),
         email: z.string().email({ message: "Please enter a valid email address." }),
