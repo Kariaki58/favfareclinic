@@ -1,11 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import {
   ArrowRight,
   Sparkles,
   Heart,
   Smile,
   ChevronRight,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,8 +26,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+} from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { services, testimonials, beforeAndAfters } from '@/app/lib/data';
 
 const serviceIcons = {
@@ -35,6 +44,7 @@ const serviceIcons = {
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
   const highlightedServices = services.slice(0, 3);
+  const [selectedImage, setSelectedImage] = useState<ImagePlaceholder | null>(null);
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
@@ -133,16 +143,16 @@ export default function Home() {
                 return (
                   <div key={item.id} className="grid grid-cols-2 gap-2 group">
                     {beforeImg && 
-                      <div className="relative aspect-square">
+                      <button onClick={() => setSelectedImage(beforeImg)} className="relative aspect-square focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg">
                         <Image src={beforeImg.imageUrl} alt="Before smile" fill className="rounded-lg object-cover" data-ai-hint={beforeImg.imageHint}/>
                         <Badge variant="secondary" className="absolute top-2 left-2">Before</Badge>
-                      </div>
+                      </button>
                     }
                     {afterImg &&
-                      <div className="relative aspect-square">
+                      <button onClick={() => setSelectedImage(afterImg)} className="relative aspect-square focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg">
                         <Image src={afterImg.imageUrl} alt="After smile" fill className="rounded-lg object-cover" data-ai-hint={afterImg.imageHint}/>
                         <Badge className="absolute top-2 left-2">After</Badge>
-                      </div>
+                      </button>
                     }
                   </div>
                 );
@@ -162,37 +172,49 @@ export default function Home() {
                 We are proud to have earned the trust of our community.
               </p>
             </div>
-            <Carousel
-              opts={{ align: 'start', loop: true }}
-              className="w-full max-w-4xl mx-auto"
-            >
-              <CarouselContent>
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1">
-                      <Card className="h-full">
-                        <CardContent className="pt-6 flex flex-col items-center text-center">
-                          <p className="text-muted-foreground mb-4">
-                            "{testimonial.quote}"
-                          </p>
-                          <p className="font-semibold">{testimonial.name}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {testimonial.location}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+            <div className="relative">
+              <Carousel
+                opts={{ align: 'start', loop: true }}
+                className="w-full max-w-4xl mx-auto"
+              >
+                <CarouselContent>
+                  {testimonials.map((testimonial, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="md:basis-1/2 lg:basis-1/3"
+                    >
+                      <div className="p-1">
+                        <Card className="h-full">
+                          <CardContent className="pt-6 flex flex-col items-center text-center">
+                            <p className="text-muted-foreground mb-4">
+                              "{testimonial.quote}"
+                            </p>
+                            <p className="font-semibold">{testimonial.name}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {testimonial.location}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
+              </Carousel>
+            </div>
           </div>
         </section>
+
+        <Dialog open={!!selectedImage} onOpenChange={(isOpen) => !isOpen && setSelectedImage(null)}>
+            {selectedImage && (
+                <DialogContent className="p-0 border-0 max-w-4xl bg-transparent shadow-none">
+                    <div className="relative aspect-video w-full">
+                        <Image src={selectedImage.imageUrl} alt={selectedImage.description} fill className="object-contain rounded-lg" data-ai-hint={selectedImage.imageHint}/>
+                    </div>
+                </DialogContent>
+            )}
+        </Dialog>
 
       </main>
     </div>
