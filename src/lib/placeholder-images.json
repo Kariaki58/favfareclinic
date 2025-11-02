@@ -1,3 +1,106 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A happy patient with a bright smile, sitting in a modern dental chair.",
+      "imageUrl": "https://images.unsplash.com/photo-1684607632845-723f8f427110?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxoYXBweSUyMHBhdGllbnR8ZW58MHx8fHwxNzYyMDE1NDI2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy patient"
+    },
+    {
+      "id": "service-whitening",
+      "description": "Close-up of a teeth whitening procedure.",
+      "imageUrl": "https://images.unsplash.com/photo-1654373535457-383a0a4d00f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZWV0aCUyMHdoaXRlbmluZ3xlbnwwfHx8fDE3NjIwMTU0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "teeth whitening"
+    },
+    {
+      "id": "service-implants",
+      "description": "A model of a dental implant.",
+      "imageUrl": "https://images.unsplash.com/photo-1525893277997-207c04d47d65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkZW50YWwlMjBpbXBsYW50fGVufDB8fHx8MTc2MjAxNTQyNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental implant"
+    },
+    {
+      "id": "service-cleaning",
+      "description": "Dentist performing a routine dental cleaning.",
+      "imageUrl": "https://images.unsplash.com/photo-1693693476268-867d0e6eda85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkZW50YWwlMjBjbGVhbmluZ3xlbnwwfHx8fDE3NjIwMTU0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental cleaning"
+    },
+    {
+      "id": "service-cosmetic",
+      "description": "A collection of cosmetic dentistry tools.",
+      "imageUrl": "https://images.unsplash.com/photo-1593022356269-609ed284b3c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkZW50aXN0JTIwdG9vbHN8ZW58MHx8fHwxNzYyMDg1MTg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dentist tools"
+    },
+    {
+      "id": "service-veneers",
+      "description": "Example of dental veneers on a model.",
+      "imageUrl": "https://images.unsplash.com/photo-1639479965482-dfa2aa225adb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwZXJmZWN0JTIwc21pbGV8ZW58MHx8fHwxNzYyMDU2MjU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "perfect smile"
+    },
+    {
+      "id": "service-orthodontics",
+      "description": "Clear dental aligners on a stand.",
+      "imageUrl": "https://images.unsplash.com/photo-1654105929948-2785aeab12f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50YWwlMjBhbGlnbmVyc3xlbnwwfHx8fDE3NjIwODUxODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental aligners"
+    },
+    {
+      "id": "about-team",
+      "description": "The professional and friendly dental team of Precision Dental.",
+      "imageUrl": "https://images.unsplash.com/photo-1758205307916-4d302e3819f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkZW50YWwlMjB0ZWFtfGVufDB8fHx8MTc2MjA4NTE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental team"
+    },
+    {
+      "id": "dentist-portrait",
+      "description": "Portrait of Dr. Evelyn Reed, head dentist at Precision Dental.",
+      "imageUrl": "https://images.unsplash.com/photo-1606811801193-e318c9a87ad7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkZW50aXN0fGVufDB8fHx8MTc2MjA4NTE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professional dentist"
+    },
+    {
+      "id": "clinic-1",
+      "description": "The bright and modern reception area of the clinic.",
+      "imageUrl": "https://images.unsplash.com/photo-1638636272500-7290468dae0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjbGluaWMlMjByZWNlcHRpb258ZW58MHx8fHwxNzYyMDcyODA3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "clinic reception"
+    },
+    {
+      "id": "clinic-2",
+      "description": "A state-of-the-art dental examination room.",
+      "imageUrl": "https://images.unsplash.com/photo-1643916800611-1302e8d27c38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkZW50YWwlMjBjaGFpcnxlbnwwfHx8fDE3NjIwODUxODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental chair"
+    },
+    {
+      "id": "clinic-3",
+      "description": "The comfortable and clean waiting area.",
+      "imageUrl": "https://images.unsplash.com/photo-1580616118171-77f0a6d1ab0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3YWl0aW5nJTIwcm9vbXxlbnwwfHx8fDE3NjIwODUxODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "waiting room"
+    },
+    {
+      "id": "before-1",
+      "description": "A smile before cosmetic treatment.",
+      "imageUrl": "https://images.unsplash.com/photo-1694364596448-790bbe1752fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8eWVsbG93ZWQlMjB0ZWV0aHxlbnwwfHx8fDE3NjIwODUxODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yellowed teeth"
+    },
+    {
+      "id": "after-1",
+      "description": "A bright, white smile after cosmetic treatment.",
+      "imageUrl": "https://images.unsplash.com/photo-1656404256001-2ddddacd050f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3aGl0ZSUyMHNtaWxlfGVufDB8fHx8MTc2MjA1NjI1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white smile"
+    },
+    {
+      "id": "before-2",
+      "description": "A smile with crooked teeth before orthodontic treatment.",
+      "imageUrl": "https://images.unsplash.com/photo-1726883425436-6d4a3a66a184?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjcm9va2VkJTIwdGVldGh8ZW58MHx8fHwxNzYyMDE5MjA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "crooked teeth"
+    },
+    {
+      "id": "after-2",
+      "description": "A perfectly aligned smile after orthodontic treatment.",
+      "imageUrl": "https://images.unsplash.com/photo-1601045518565-2f15fff0b42b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHJhaWdodCUyMHRlZXRofGVufDB8fHx8MTc2MjAxOTIwNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "straight teeth"
+    },
+    {
+      "id": "map-placeholder",
+      "description": "A placeholder image of a map showing the clinic location.",
+      "imageUrl": "https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjaXR5JTIwbWFwfGVufDB8fHx8MTc2MjAzMTIwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    }
+  ]
 }
