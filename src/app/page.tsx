@@ -25,7 +25,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { services, testimonials, beforeAndAfters } from '@/app/lib/data';
-import AiOptimizer from '@/components/ai-optimizer';
 
 const serviceIcons = {
   'Teeth Whitening': <Sparkles className="h-8 w-8 text-primary" />,
@@ -192,13 +191,6 @@ export default function Home() {
               <CarouselPrevious />
               <CarouselNext />
             </Carousel>
-          </div>
-        </section>
-
-        {/* AI Copy Optimizer Section */}
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <AiOptimizer />
           </div>
         </section>
 

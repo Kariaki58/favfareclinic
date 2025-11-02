@@ -1,7 +1,6 @@
 'use server';
 
 import { z } from 'zod';
-import { optimizeHeroCopy, type OptimizeHeroCopyInput } from '@/ai/flows/homepage-hero-copy-optimization';
 
 // Schema for booking form
 const bookingSchema = z.object({
@@ -57,15 +56,4 @@ export async function createBooking(
   return {
     message: 'success',
   };
-}
-
-// AI Optimizer Action
-export async function runOptimizer(input: OptimizeHeroCopyInput) {
-    try {
-        const result = await optimizeHeroCopy(input);
-        return { success: true, data: result };
-    } catch (error) {
-        console.error("Error running optimizer:", error);
-        return { success: false, error: "Failed to run AI optimization." };
-    }
 }
