@@ -44,13 +44,13 @@
     },
     {
       "id": "about-team",
-      "description": "The professional and friendly dental team of Precision Dental.",
+      "description": "The professional and friendly dental team of Fav Fare.",
       "imageUrl": "https://images.unsplash.com/photo-1758205307916-4d302e3819f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkZW50YWwlMjB0ZWFtfGVufDB8fHx8MTc2MjA4NTE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "dental team"
     },
     {
       "id": "dentist-portrait",
-      "description": "Portrait of Dr. Evelyn Reed, head dentist at Precision Dental.",
+      "description": "Portrait of Dr. Evelyn Reed, head dentist at Fav Fare.",
       "imageUrl": "https://images.unsplash.com/photo-1606811801193-e318c9a87ad7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkZW50aXN0fGVufDB8fHx8MTc2MjA4NTE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "professional dentist"
     },

@@ -51,8 +51,8 @@ export function Footer() {
             <h3 className="font-semibold text-foreground mb-4">Contact Us</h3>
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>123 Dental St, Smileville, CA 90210</p>
-              <p>Email: <a href="mailto:contact@precisiondental.com" className="hover:text-primary">contact@precisiondental.com</a></p>
-              <p>Phone: <a href="tel:123-456-7890" className="hover:text-primary">(123) 456-7890</a></p>
+              <p>Email: <a href="mailto:contact@favfare.com" className="hover:text-primary">contact@favfare.com</a></p>
+              <p>Phone: <a href="tel:123-456-7890" className="hover:text-primary">+234 916 943 8645</a></p>
             </div>
           </div>
           
@@ -76,7 +76,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t">
           <p className="text-center text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Precision Dental. All rights reserved.
+            &copy; {new Date().getFullYear()} Fav Fare. All rights reserved.
           </p>
         </div>
       </div>

@@ -200,7 +200,7 @@ export default function BookingForm() {
                     <FormField control={form.control} name="phone" render={({ field }) => (
                       <FormItem>
                         <FormLabel>Phone Number</FormLabel>
-                        <FormControl><Input placeholder="(123) 456-7890" {...field} /></FormControl>
+                        <FormControl><Input placeholder="+234 916 943 8645" {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
                     )} />

@@ -1,4 +1,4 @@
-# **App Name**: Precision Dental
+# **App Name**: Fav Fare
 
 ## Core Features:
 

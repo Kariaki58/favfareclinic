@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Book an Appointment',
-  description: 'Schedule your visit with Precision Dental in a few easy steps.',
+  description: 'Schedule your visit with Fav Fare in a few easy steps.',
 };
 
 export default function BookAppointmentPage() {

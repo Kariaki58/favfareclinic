@@ -1,32 +1,10 @@
 import { cn } from '@/lib/utils';
-import type { SVGProps } from 'react';
-
-const ToothIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M9.25 8C9.25 6 9.25 5 9.875 4.375C10.5 3.75 11.5 3.75 13.5 3.75C15.5 3.75 16.5 3.75 17.125 4.375C17.75 5 17.75 6 17.75 8V9C17.75 9.53048 17.75 9.79571 17.8208 10.0245C17.884 10.2298 17.9865 10.4194 18.1213 10.5858C18.2733 10.7719 18.4787 10.9015 18.8895 11.1606L19.25 11.3961C20.25 12.0628 20.75 12.3961 21.0607 12.9142C21.3294 13.3591 21.3294 13.9136 21.0607 14.3585C20.75 14.8766 20.25 15.2099 19.25 15.8766L18.8895 16.116C18.4787 16.3751 18.2733 16.5047 18.1213 16.6908C17.9865 16.8572 17.884 17.0468 17.8208 17.2521C17.75 17.4809 17.75 17.7461 17.75 18.2766V19.2766C17.75 20.2195 17.2803 20.6892 16.3421 20.6892H10.6579C9.71966 20.6892 9.25 20.2195 9.25 19.2766V18.2766C9.25 17.7461 9.25 17.4809 9.17918 17.2521C9.11603 17.0468 9.01351 16.8572 8.87869 16.6908C8.72668 16.5047 8.52132 16.3751 8.11059 16.116L7.75 15.8766C6.75 15.2099 6.25 14.8766 5.93935 14.3585C5.67061 13.9136 5.67061 13.3591 5.93935 12.9142C6.25 12.3961 6.75 12.0628 7.75 11.3961L8.11059 11.1606C8.52132 10.9015 8.72668 10.7719 8.87869 10.5858C9.01351 10.4194 9.11603 10.2298 9.17918 10.0245C9.25 9.79571 9.25 9.53048 9.25 9V8Z" />
-    <path d="M6 8.5L9.25 8V9" />
-    <path d="M9.5 17.5L7.5 20" />
-    <path d="M17.5 17.5L19.5 20" />
-  </svg>
-);
-
+import Image from 'next/image';
 
 export function Logo({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={cn("flex items-center gap-2", className)} {...props}>
-      <ToothIcon className="h-6 w-6" />
-      <span className="font-bold text-xl tracking-tight font-headline">Precision Dental</span>
+      <Image src="/dental_logo.png" alt="Favfare" width={100} height={58} className="text-primary" />
     </div>
   );
 }

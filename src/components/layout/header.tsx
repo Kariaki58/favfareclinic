@@ -39,7 +39,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Logo className={cn(isScrolled || pathname !== '/' ? 'text-primary' : 'text-white')} />
+            <Logo className={cn(isScrolled || pathname !== '/' ? 'text-primary' : 'text-black')} />
           </Link>
 
           {/* Desktop Navigation */}
@@ -50,7 +50,7 @@ export function Header() {
                 href={link.href}
                 className={cn(
                   'text-sm font-medium transition-colors hover:text-primary',
-                  pathname === link.href ? 'text-primary' : (isScrolled || pathname !== '/') ? 'text-foreground' : 'text-white'
+                  pathname === link.href ? 'text-primary' : (isScrolled || pathname !== '/') ? 'text-foreground' : 'text-black'
                 )}
               >
                 {link.label}
@@ -68,7 +68,7 @@ export function Header() {
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon">
-                  <Menu className={cn((isScrolled || pathname !== '/') ? 'text-foreground' : 'text-white')} />
+                  <Menu className={cn((isScrolled || pathname !== '/') ? 'text-foreground' : 'text-black')} />
                   <span className="sr-only">Open menu</span>
                 </Button>
               </SheetTrigger>
@@ -87,7 +87,7 @@ export function Header() {
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={cn(
                           'text-lg font-medium transition-colors hover:text-primary',
-                          pathname === link.href ? 'text-primary' : 'text-foreground'
+                          pathname === link.href ? 'text-primary' : 'text-black'
                         )}
                       >
                         {link.label}

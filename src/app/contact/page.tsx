@@ -61,7 +61,7 @@ const ContactForm = () => {
                 <FormField control={form.control} name="phone" render={({ field }) => (
                     <FormItem>
                         <FormLabel>Phone Number (Optional)</FormLabel>
-                        <FormControl><Input placeholder="(123) 456-7890" {...field} /></FormControl>
+                        <FormControl><Input placeholder="+234 916 943 8645" {...field} /></FormControl>
                         <FormMessage />
                     </FormItem>
                 )} />
@@ -84,8 +84,8 @@ export default function ContactPage() {
 
   const contactDetails = [
     { icon: MapPin, text: '123 Dental St, Smileville, CA 90210', href: '#' },
-    { icon: Phone, text: '(123) 456-7890', href: 'tel:123-456-7890' },
-    { icon: Mail, text: 'contact@precisiondental.com', href: 'mailto:contact@precisiondental.com' },
+    { icon: Phone, text: '+234 916 943 8645', href: 'tel:123-456-7890' },
+    { icon: Mail, text: 'contact@favfare.com', href: 'mailto:contact@favfare.com' },
     { icon: Clock, text: 'Mon - Fri: 9:00 AM - 5:00 PM' },
   ];
 

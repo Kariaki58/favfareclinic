@@ -8,10 +8,10 @@ import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Precision Dental | Expert Care for a Brighter Smile',
-    template: '%s | Precision Dental',
+    default: 'Fav Fare | Expert Care for a Brighter Smile',
+    template: '%s | Fav Fare',
   },
-  description: 'Experience modern dentistry with a gentle touch. Precision Dental offers expert care, from routine cleanings to cosmetic procedures, in a calm and welcoming environment.',
+  description: 'Experience modern dentistry with a gentle touch. Fav Fare offers expert care, from routine cleanings to cosmetic procedures, in a calm and welcoming environment.',
   keywords: ['dentist', 'dental clinic', 'cosmetic dentistry', 'teeth whitening', 'dental implants', 'family dentistry'],
 };
 
@@ -23,7 +23,7 @@ export default function RootLayout({
   const structuredData = {
       "@context": "https://schema.org",
       "@type": "Dentist",
-      "name": "Precision Dental",
+      "name": "Fav Fare",
       "image": "https://picsum.photos/seed/logo/200/200",
       "url": "https://your-domain.com",
       "telephone": "+1-234-567-890",

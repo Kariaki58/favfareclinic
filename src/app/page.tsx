@@ -86,7 +86,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/50 z-10" />
           {heroImage && (
             <Image
-              src={heroImage.imageUrl}
+              src="/banner_image.jpg"
               alt={heroImage.description}
               fill
               className="object-cover"
@@ -227,7 +227,7 @@ export default function Home() {
             <div className="container mx-auto px-4">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6">Why Choose Precision Dental?</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6">Why Choose Fav Fare?</h2>
                         <ul className="space-y-6">
                            {whyChooseUsItems.map((item, index) => (
                              <li key={index} className="flex items-start">
@@ -245,7 +245,7 @@ export default function Home() {
                     <div className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
                         {whyChooseImage && (
                             <Image
-                                src={whyChooseImage.imageUrl}
+                                src="/dentist_owner.jpeg"
                                 alt={whyChooseImage.description}
                                 fill
                                 className="object-cover"

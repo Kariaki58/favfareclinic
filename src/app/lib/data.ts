@@ -51,7 +51,7 @@ export const testimonials = [
   {
     name: 'Emily L.',
     location: 'Smileville',
-    quote: 'I was so nervous about getting implants, but the team at Precision Dental was amazing. The procedure was painless and the results are fantastic.',
+    quote: 'I was so nervous about getting implants, but the team at Fav Fare was amazing. The procedure was painless and the results are fantastic.',
   },
   {
     name: 'David R.',

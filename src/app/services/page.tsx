@@ -74,7 +74,7 @@ export default function ServicesPage() {
       <section className="py-16 md:py-24 bg-card">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline">Why Choose Precision Dental?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">Why Choose Fav Fare?</h2>
             <p className="mt-4 text-lg text-muted-foreground">
               We're different. Here's what sets us apart.
             </p>
