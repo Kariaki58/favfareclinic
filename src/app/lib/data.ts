@@ -67,9 +67,9 @@ export const testimonials = [
 
 export const beforeAndAfters = [
   { id: 1, beforeId: 'before-1', afterId: 'after-1' },
-  { id: 2, beforeId: 'before-2', afterId: 'after-2' },
+  // { id: 2, beforeId: 'before-2', afterId: 'after-2' },
   { id: 3, beforeId: 'before-1', afterId: 'after-1' },
-  { id: 4, beforeId: 'before-2', afterId: 'after-2' },
+  // { id: 4, beforeId: 'before-2', afterId: 'after-2' },
 ];
 
 export const timeSlots = [
