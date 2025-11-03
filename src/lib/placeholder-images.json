@@ -101,6 +101,12 @@
       "description": "A placeholder image of a map showing the clinic location.",
       "imageUrl": "https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjaXR5JTIwbWFwfGVufDB8fHx8MTc2MjAzMTIwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city map"
+    },
+    {
+      "id": "why-choose-us",
+      "description": "A friendly dentist discussing a treatment plan with a smiling patient.",
+      "imageUrl": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmb3JtYWxseSUyMGRyZXNzZWQlMjBmZW1hbGUlMjBkZW50aXN0JTIwY2hhdHRpbmclMjB3aXRoJTIwZmllbmRseSUyMHNtaWxpbmd8ZW58MHx8fHwxNzIyMjAzMTUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "friendly dentist"
     }
   ]
 }
