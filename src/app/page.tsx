@@ -124,7 +124,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
                 Expert Care, Personalized For You
               </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="mt-4 text-base md:text-lg text-muted-foreground">
                 From routine check-ups to life-changing transformations, we
                 offer a complete range of dental services.
               </p>
@@ -139,7 +139,7 @@ export default function Home() {
                     <div className="p-4 bg-primary/10 rounded-full mb-4">
                       {serviceIcons[service.title as keyof typeof serviceIcons]}
                     </div>
-                    <CardTitle className="text-xl font-bold">
+                    <CardTitle className="text-xl md:text-2xl font-bold">
                       {service.title}
                     </CardTitle>
                   </CardHeader>
@@ -164,7 +164,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
                 Our Practice by the Numbers
               </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="mt-4 text-base md:text-lg text-muted-foreground">
                 We are proud of our commitment to excellence and patient satisfaction.
               </p>
             </div>
@@ -173,7 +173,7 @@ export default function Home() {
                 <div key={stat.label} className="flex flex-col items-center">
                   <stat.icon className="h-10 w-10 text-primary mb-2" />
                   <p className="text-3xl md:text-4xl font-bold">{stat.value}</p>
-                  <p className="text-muted-foreground mt-1">{stat.label}</p>
+                  <p className="text-sm md:text-base text-muted-foreground mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -188,7 +188,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
                 Transforming Smiles, Changing Lives
               </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="mt-4 text-base md:text-lg text-muted-foreground">
                 See the real results our patients have experienced.
               </p>
             </div>
@@ -264,7 +264,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
                 What Our Patients Say
               </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="mt-4 text-base md:text-lg text-muted-foreground">
                 We are proud to have earned the trust of our community.
               </p>
             </div>
@@ -309,7 +309,7 @@ export default function Home() {
                     <h2 className="text-3xl md:text-4xl font-bold font-headline">
                         Frequently Asked Questions
                     </h2>
-                    <p className="mt-4 text-lg text-muted-foreground">
+                    <p className="mt-4 text-base md:text-lg text-muted-foreground">
                         Have questions? We have answers. Here are some of the most common queries we receive.
                     </p>
                 </div>
@@ -317,7 +317,7 @@ export default function Home() {
                     <Accordion type="single" collapsible className="w-full">
                        {faqs.map((faq, index) => (
                          <AccordionItem key={index} value={`item-${index}`}>
-                           <AccordionTrigger className="text-lg text-left">{faq.question}</AccordionTrigger>
+                           <AccordionTrigger className="text-base md:text-lg text-left">{faq.question}</AccordionTrigger>
                            <AccordionContent className="text-muted-foreground">
                              {faq.answer}
                            </AccordionContent>
