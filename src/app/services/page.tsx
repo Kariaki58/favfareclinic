@@ -1,96 +1,130 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { CheckCircle, Clock, Star } from 'lucide-react';
 import { services } from '@/app/lib/data';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export const metadata: Metadata = {
-  title: 'Our Services',
-  description: 'Explore the wide range of dental services we offer, from routine check-ups and cleanings to advanced cosmetic dentistry and implants.',
+  title: 'Our Services & Pricing - Favfare The Clinic',
+  description: 'Premium cosmetic dentistry services in Lagos. View our complete service list with transparent pricing.',
 };
 
 export default function ServicesPage() {
-  const whyChooseUs = [
-    { title: 'Advanced Technology', description: 'We use the latest tools and techniques for more accurate and comfortable treatments.' },
-    { title: 'Patient-Centered Care', description: 'Your comfort and goals are at the heart of everything we do.' },
-    { title: 'Experienced Team', description: 'Our skilled professionals are dedicated to providing the highest quality of care.' },
-    { title: 'Transparent Pricing', description: 'Clear, upfront information about costs so you can make informed decisions.' },
-  ];
+  const featuredServices = services.slice(0, 3);
 
   return (
     <div className="animate-fade-in">
       {/* Page Header */}
-      <section className="py-16 md:py-24 bg-card">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-primary/5 to-blue-50">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold font-headline">Our Dental Services</h1>
+          <Badge variant="secondary" className="mb-4">Premium Cosmetic Dentistry</Badge>
+          <h1 className="text-4xl md:text-5xl font-extrabold font-headline">Our Services & Pricing</h1>
           <p className="mt-4 text-lg max-w-3xl mx-auto text-muted-foreground">
-            Comprehensive care to meet all your dental needs. We're committed to helping you achieve and maintain a healthy, beautiful smile for life.
+            Transparent, affordable pricing for all our premium cosmetic dentistry services. 
+            Achieve the smile you deserve with professional care in Lagos.
           </p>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* All Services Grid */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => {
-              const serviceImage = PlaceHolderImages.find((img) => img.id === service.image);
-              return (
-                <Card key={service.title} className="flex flex-col">
-                  {serviceImage && (
-                    <div className="relative aspect-video">
-                      <Image
-                        src={serviceImage.imageUrl}
-                        alt={service.title}
-                        fill
-                        className="object-cover rounded-t-lg"
-                        data-ai-hint={serviceImage.imageHint}
-                      />
-                    </div>
-                  )}
-                  <CardHeader>
-                    <CardTitle>{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <CardDescription>{service.longDescription}</CardDescription>
-                  </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <Button asChild>
-                      <Link href="/book-appointment">Book Now</Link>
-                    </Button>
-                    <Button variant="ghost">Learn More</Button>
-                  </CardFooter>
-                </Card>
-              );
-            })}
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">Complete Service Menu</h2>
+            <p className="mt-4 text-muted-foreground">
+              Browse our comprehensive range of cosmetic and general dentistry services
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {services.map((service, index) => (
+              <Card key={service.title} className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-xl">{service.title}</CardTitle>
+                    <Badge variant="secondary" className="text-base font-semibold px-3 py-1">
+                      {service.price}
+                    </Badge>
+                  </div>
+                  <CardDescription>{service.shortDescription}</CardDescription>
+                </CardHeader>
+                <CardContent className="pb-3">
+                  {/* <div className="flex items-center text-sm text-muted-foreground mb-2">
+                    <Clock className="h-4 w-4 mr-1" />
+                    <span>{service.duration}</span>
+                  </div> */}
+                  <p className="text-sm text-muted-foreground">{service.longDescription}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild className="w-full">
+                    <Link href="/book-appointment">Book This Service</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* Why Choose Favfare Section */}
       <section className="py-16 md:py-24 bg-card">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline">Why Choose Fav Fare?</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              We're different. Here's what sets us apart.
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">Why Choose Favfare The Clinic?</h2>
+            <p className="mt-4 text-muted-foreground">
+              Experience the difference with our patient-focused approach
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {whyChooseUs.map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="flex justify-center mb-4">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                        <CheckCircle className="h-8 w-8 text-primary" />
-                    </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                title: 'Safe & Professional',
+                description: 'All treatments performed by qualified professionals using certified materials'
+              },
+              {
+                title: 'Beautiful Results',
+                description: 'Focus on aesthetic excellence and natural-looking outcomes'
+              },
+              {
+                title: 'Affordable Pricing',
+                description: 'Transparent pricing with no hidden costs'
+              },
+              {
+                title: 'Confidence Boost',
+                description: 'Transform your smile and boost your self-confidence'
+              }
+            ].map((feature, index) => (
+              <div key={index} className="text-center p-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
+                <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm">{feature.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold font-headline mb-4">
+            Ready to Transform Your Smile?
+          </h2>
+          <p className="text-lg mb-8 max-w-2xl mx-auto">
+            Book your appointment today and take the first step towards a more confident you.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" variant="secondary">
+              <Link href="/book-appointment">Book Appointment Now</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white">
+              <a href="https://wa.me/2349169438645">Chat on WhatsApp</a>
+            </Button>
           </div>
         </div>
       </section>

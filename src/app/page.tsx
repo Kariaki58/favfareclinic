@@ -14,12 +14,15 @@ import {
   Award,
   Activity,
   CheckCircle,
+  Clock,
+  MessageCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -47,8 +50,8 @@ import { services, testimonials, beforeAndAfters } from '@/app/lib/data';
 
 const serviceIcons = {
   'Teeth Whitening': <Sparkles className="h-8 w-8 text-primary" />,
-  'Dental Implants': <Smile className="h-8 w-8 text-primary" />,
-  'Family Dentistry': <Heart className="h-8 w-8 text-primary" />,
+  'Hollywood Teeth Whitening': <Sparkles className="h-8 w-8 text-primary" />,
+  'Scaling & Polishing': <Smile className="h-8 w-8 text-primary" />,
 };
 
 const stats = [
@@ -59,23 +62,24 @@ const stats = [
 ];
 
 const whyChooseUsItems = [
-    { title: 'Advanced Technology', description: 'We use the latest tools for precise and comfortable treatments.' },
-    { title: 'Patient-Centered Care', description: 'Your comfort and goals are our top priority.' },
-    { title: 'Comfortable Environment', description: 'A calm, welcoming space to make you feel at ease.' },
-    { title: 'Experienced Team', description: 'Skilled professionals dedicated to excellence in dental care.' },
+    { title: 'Safe & Professional', description: 'All treatments performed by qualified professionals using certified materials and safe procedures.' },
+    { title: 'Beautiful Results', description: 'We focus on aesthetic excellence and natural-looking outcomes that enhance your smile.' },
+    { title: 'Affordable Pricing', description: 'Transparent, competitive pricing with no hidden costs. Quality care that fits your budget.' },
+    { title: 'Confidence Boost', description: 'Transform your smile and boost your self-confidence with our cosmetic dentistry expertise.' },
 ];
 
 const faqs = [
-    { question: "What should I expect on my first visit?", answer: "Your first visit includes a comprehensive exam, x-rays if needed, and a consultation with Dr. Reed. We'll discuss your dental history and goals to create a personalized treatment plan." },
-    { question: "Do you accept dental insurance?", answer: "Yes, we accept most major dental insurance plans. Please contact our office with your insurance information, and we'll be happy to verify your coverage." },
-    { question: "What are your office hours?", answer: "We are open Monday to Friday, from 9:00 AM to 5:00 PM. We are closed on weekends and major holidays." },
-    { question: "What should I do in case of a dental emergency?", answer: "If you have a dental emergency, please call our office immediately. We offer same-day appointments for urgent cases to provide prompt care." },
+    { question: "How long does teeth whitening last?", answer: "Results typically last 6-18 months depending on your diet and oral hygiene. We recommend avoiding staining foods and drinks like coffee, tea, and red wine to maintain your bright smile longer." },
+    { question: "Is the teeth whitening process safe?", answer: "Yes, our teeth whitening procedures are completely safe when performed by our professionals. We use approved materials and techniques to ensure your enamel and gums are protected throughout the process." },
+    { question: "Do you offer payment plans?", answer: "We offer flexible payment options for certain procedures. Please contact us directly to discuss available payment plans that can make your treatment more affordable." },
+    { question: "How soon can I get an appointment?", answer: "We typically have availability within 1-3 days. For urgent cases, we offer same-day appointments when possible. You can book online or contact us via WhatsApp for immediate assistance." },
 ];
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
   const whyChooseImage = PlaceHolderImages.find((img) => img.id === 'why-choose-us');
   const highlightedServices = services.slice(0, 3);
+  const popularServices = services.slice(0, 4);
   const [selectedImage, setSelectedImage] = useState<ImagePlaceholder | null>(null);
 
   return (
@@ -96,12 +100,12 @@ export default function Home() {
           )}
           <div className="relative z-20 container mx-auto flex flex-col items-center justify-center h-full text-center px-4">
             <div className="max-w-3xl animate-fade-in space-y-4">
+              <Badge variant="secondary" className="mb-4 text-sm">Premium Cosmetic Dentistry in Lagos</Badge>
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight font-headline">
-                Brighten Your Smile with Precision, Comfort, and Care.
+                Where Confidence Begins With Your Smile
               </h1>
               <p className="text-lg md:text-xl text-gray-200">
-                Experience modern dentistry in a calm, welcoming environment —
-                trusted by thousands of happy patients.
+                Safe, professional, and beautiful results. Premium cosmetic dentistry services designed to transform your smile and boost your confidence.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button asChild size="lg">
@@ -110,49 +114,53 @@ export default function Home() {
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary">
-                  <Link href="/services">Explore Our Services</Link>
+                  <Link href="/services">View Services & Pricing</Link>
                 </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Highlighted Services Section */}
-        <section id="services" className="py-16 md:py-24 bg-card">
+        {/* Quick Services & Pricing Preview */}
+        <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-2xl mx-auto mb-12">
+              <Badge variant="secondary" className="mb-4">Popular Services</Badge>
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
-                Expert Care, Personalized For You
+                Affordable Smile Transformations
               </h2>
-              <p className="mt-4 text-base md:text-lg text-muted-foreground">
-                From routine check-ups to life-changing transformations, we
-                offer a complete range of dental services.
+              <p className="mt-4 text-muted-foreground">
+                Premium cosmetic dentistry services at transparent prices in Lagos
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {highlightedServices.map((service) => (
-                <Card
-                  key={service.title}
-                  className="group animate-slide-up hover:shadow-primary/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
-                >
-                  <CardHeader className="items-center text-center">
-                    <div className="p-4 bg-primary/10 rounded-full mb-4">
-                      {serviceIcons[service.title as keyof typeof serviceIcons]}
-                    </div>
-                    <CardTitle className="text-xl md:text-2xl font-bold">
-                      {service.title}
-                    </CardTitle>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {popularServices.map((service) => (
+                <Card key={service.title} className="text-center group hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg">{service.title}</CardTitle>
+                    <div className="text-2xl font-bold text-primary">{service.price}</div>
                   </CardHeader>
-                  <CardContent className="text-center">
-                    <CardDescription>{service.shortDescription}</CardDescription>
-                    <Button variant="link" asChild className="mt-4 text-primary">
-                      <Link href="/services">
-                        Learn More <ChevronRight className="h-4 w-4 ml-1" />
-                      </Link>
-                    </Button>
+                  <CardContent className="pb-3">
+                    <p className="text-sm text-muted-foreground mb-4">{service.shortDescription}</p>
+                    {/* <div className="flex items-center justify-center text-xs text-muted-foreground">
+                      <Clock className="h-3 w-3 mr-1" />
+                      {service.duration}
+                    </div> */}
                   </CardContent>
+                  <CardFooter>
+                    <Button asChild className="w-full">
+                      <Link href="/book-appointment">Book Now</Link>
+                    </Button>
+                  </CardFooter>
                 </Card>
               ))}
+            </div>
+            
+            <div className="text-center mt-12">
+              <Button asChild variant="outline">
+                <Link href="/services">View All Services & Pricing</Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -162,10 +170,10 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
-                Our Practice by the Numbers
+                Trusted by Lagos Residents
               </h2>
               <p className="mt-4 text-base md:text-lg text-muted-foreground">
-                We are proud of our commitment to excellence and patient satisfaction.
+                We are proud of our commitment to excellence and patient satisfaction in cosmetic dentistry.
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -180,16 +188,54 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Highlighted Services Section */}
+        <section id="services" className="py-16 md:py-24 bg-card">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold font-headline">
+                Our Signature Services
+              </h2>
+              <p className="mt-4 text-base md:text-lg text-muted-foreground">
+                Specialized cosmetic treatments designed to enhance your smile and boost your confidence
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {highlightedServices.map((service) => (
+                <Card key={service.title} className="group text-center hover:shadow-primary/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+                  <CardHeader className="items-center">
+                    <div className="p-4 bg-primary/10 rounded-full mb-4">
+                      {serviceIcons[service.title as keyof typeof serviceIcons]}
+                    </div>
+                    <CardTitle className="text-xl">{service.title}</CardTitle>
+                    <div className="text-2xl font-bold text-primary">{service.price}</div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-4">{service.shortDescription}</p>
+                    {/* <div className="flex items-center justify-center text-sm text-muted-foreground mb-4">
+                      <Clock className="h-4 w-4 mr-1" />
+                      {service.duration}
+                    </div> */}
+                  </CardContent>
+                  <CardFooter>
+                    <Button asChild className="w-full">
+                      <Link href="/book-appointment">Book This Service</Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Before & After Gallery Preview */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
-                Transforming Smiles, Changing Lives
+                Real Smile Transformations
               </h2>
               <p className="mt-4 text-base md:text-lg text-muted-foreground">
-                See the real results our patients have experienced.
+                See the real results our patients in Lagos have experienced at Favfare The Clinic.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -216,7 +262,10 @@ export default function Home() {
             </div>
              <div className="text-center mt-12">
                 <Button asChild size="lg" variant="outline">
-                    <Link href="/contact">View More Transformations</Link>
+                  <a href="https://www.tiktok.com/@favfare" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <span>View More on TikTok</span>
+                    {/* You can add a TikTok icon here if you have one */}
+                  </a>
                 </Button>
             </div>
           </div>
@@ -227,7 +276,7 @@ export default function Home() {
             <div className="container mx-auto px-4">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6">Why Choose Fav Fare?</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6">Why Choose Favfare The Clinic?</h2>
                         <ul className="space-y-6">
                            {whyChooseUsItems.map((item, index) => (
                              <li key={index} className="flex items-start">
@@ -265,7 +314,7 @@ export default function Home() {
                 What Our Patients Say
               </h2>
               <p className="mt-4 text-base md:text-lg text-muted-foreground">
-                We are proud to have earned the trust of our community.
+                Hear from satisfied clients who have transformed their smiles with us in Lagos.
               </p>
             </div>
             <div className="relative">
@@ -282,6 +331,11 @@ export default function Home() {
                       <div className="p-1">
                         <Card className="h-full">
                           <CardContent className="pt-6 flex flex-col items-center text-center">
+                            <div className="flex mb-4">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                              ))}
+                            </div>
                             <p className="text-muted-foreground mb-4">
                               "{testimonial.quote}"
                             </p>
@@ -310,7 +364,7 @@ export default function Home() {
                         Frequently Asked Questions
                     </h2>
                     <p className="mt-4 text-base md:text-lg text-muted-foreground">
-                        Have questions? We have answers. Here are some of the most common queries we receive.
+                        Have questions about our cosmetic dentistry services? Here are some common queries.
                     </p>
                 </div>
                 <div className="max-w-3xl mx-auto">
@@ -334,6 +388,26 @@ export default function Home() {
                     </p>
                 </div>
             </div>
+        </section>
+
+        {/* WhatsApp Quick Connect */}
+        <section className="py-16 bg-green-50">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-2xl md:text-3xl font-bold font-headline mb-4">
+                Questions? Chat with Us!
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                Get quick answers about our services, pricing, or availability directly on WhatsApp. We're here to help you achieve your perfect smile.
+              </p>
+              <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
+                <a href="https://wa.me/2349169438645" target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  Chat on WhatsApp
+                </a>
+              </Button>
+            </div>
+          </div>
         </section>
 
         <Dialog open={!!selectedImage} onOpenChange={(isOpen) => !isOpen && setSelectedImage(null)}>

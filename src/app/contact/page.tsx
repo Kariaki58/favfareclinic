@@ -10,11 +10,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Mail, MapPin, Phone, Clock } from 'lucide-react';
+import { Mail, MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-
-// Metadata for a client component should be handled in a parent layout or page.
-// We can't export it from here. We'll rely on the root layout's metadata.
 
 const ContactForm = () => {
     const formSchema = z.object({
@@ -47,7 +44,7 @@ const ContactForm = () => {
                 <FormField control={form.control} name="name" render={({ field }) => (
                     <FormItem>
                         <FormLabel>Full Name</FormLabel>
-                        <FormControl><Input placeholder="John Doe" {...field} /></FormControl>
+                        <FormControl><Input placeholder="Enter your full name" {...field} /></FormControl>
                         <FormMessage />
                     </FormItem>
                 )} />
@@ -68,7 +65,7 @@ const ContactForm = () => {
                 <FormField control={form.control} name="message" render={({ field }) => (
                     <FormItem>
                         <FormLabel>Your Message</FormLabel>
-                        <FormControl><Textarea placeholder="How can we help you?" className="min-h-[120px]" {...field} /></FormControl>
+                        <FormControl><Textarea placeholder="How can we help you with your smile?" className="min-h-[120px]" {...field} /></FormControl>
                         <FormMessage />
                     </FormItem>
                 )} />
@@ -83,18 +80,43 @@ export default function ContactPage() {
   const mapImage = PlaceHolderImages.find((img) => img.id === 'map-placeholder');
 
   const contactDetails = [
-    { icon: MapPin, text: '123 Dental St, Smileville, CA 90210', href: '#' },
-    { icon: Phone, text: '+234 916 943 8645', href: 'tel:123-456-7890' },
-    { icon: Mail, text: 'contact@favfare.com', href: 'mailto:contact@favfare.com' },
-    { icon: Clock, text: 'Mon - Fri: 9:00 AM - 5:00 PM' },
+    { 
+      icon: MapPin, 
+      text: 'Lagos, Nigeria', 
+      href: 'https://maps.google.com/?q=Lagos,Nigeria',
+      description: 'Visit our cosmetic dentistry clinic in Lagos'
+    },
+    { 
+      icon: Phone, 
+      text: '+234 916 943 8645', 
+      href: 'tel:+2349169438645',
+      description: 'Call us directly'
+    },
+    { 
+      icon: Mail, 
+      text: 'nnabuifefavour8@gmail.com', 
+      href: 'mailto:nnabuifefavour8@gmail.com',
+      description: 'Send us an email'
+    },
+    { 
+      icon: Clock, 
+      text: 'Mon - Fri: 9:00 AM - 5:00 PM\nSat: 10:00 AM - 2:00 PM',
+      description: 'Our working hours'
+    },
+    { 
+      icon: MessageCircle, 
+      text: 'WhatsApp: +234 916 943 8645', 
+      href: 'https://wa.me/2349169438645',
+      description: 'Chat with us on WhatsApp'
+    },
   ];
 
   return (
     <div className="container mx-auto px-4 py-16 md:py-24 animate-fade-in">
       <div className="max-w-2xl mx-auto text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold font-headline">Get In Touch</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold font-headline">Contact Favfare The Clinic</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          We're here to help and answer any question you might have. We look forward to hearing from you.
+          Get in touch with us for premium cosmetic dentistry services in Lagos. We're here to help you achieve your perfect smile.
         </p>
       </div>
 
@@ -102,7 +124,10 @@ export default function ContactPage() {
         {/* Contact Form Card */}
         <Card>
             <CardHeader>
-                <CardTitle>Send Us a Message</CardTitle>
+                <CardTitle className="text-2xl">Send Us a Message</CardTitle>
+                <p className="text-muted-foreground">
+                  Have questions about our services? Reach out and we'll get back to you as soon as possible.
+                </p>
             </CardHeader>
             <CardContent>
                 <ContactForm />
@@ -113,38 +138,116 @@ export default function ContactPage() {
         <div className="space-y-8">
           <Card>
             <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
+                <CardTitle className="text-2xl">Contact Information</CardTitle>
+                <p className="text-muted-foreground">
+                  Multiple ways to reach Favfare The Clinic
+                </p>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               {contactDetails.map((item, index) => (
                 <div key={index} className="flex items-start gap-4">
-                  <item.icon className="h-6 w-6 text-primary mt-1" />
-                  {item.href ? (
-                    <Link href={item.href} className="text-muted-foreground hover:text-primary transition-colors">{item.text}</Link>
-                  ) : (
-                    <p className="text-muted-foreground">{item.text}</p>
-                  )}
+                  <div className="p-2 bg-primary/10 rounded-full">
+                    <item.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    {item.href ? (
+                      <a 
+                        href={item.href} 
+                        target={item.href.startsWith('http') ? '_blank' : '_self'}
+                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : ''}
+                        className="text-foreground hover:text-primary transition-colors font-medium block"
+                      >
+                        {item.text}
+                      </a>
+                    ) : (
+                      <p className="text-foreground font-medium whitespace-pre-line">{item.text}</p>
+                    )}
+                    <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                  </div>
                 </div>
               ))}
-               <Button asChild className="w-full mt-4">
-                  <Link href="/book-appointment">Book Appointment Online</Link>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                <Button asChild className="w-full">
+                  <Link href="/book-appointment">Book Appointment</Link>
                 </Button>
+                <Button asChild variant="outline" className="w-full">
+                  <a href="https://wa.me/2349169438645" target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    WhatsApp
+                  </a>
+                </Button>
+              </div>
             </CardContent>
           </Card>
           
-          <Card>
+          {/* <Card>
             <CardHeader>
-                <CardTitle>Our Location</CardTitle>
+                <CardTitle className="text-2xl">Our Location</CardTitle>
+                <p className="text-muted-foreground">
+                  Visit our clinic in Lagos for premium cosmetic dentistry services
+                </p>
             </CardHeader>
             <CardContent>
               {mapImage && (
-                <div className="aspect-video rounded-lg overflow-hidden relative shadow-inner">
-                    <Image src={mapImage.imageUrl} alt="Map to clinic" fill className="object-cover" data-ai-hint={mapImage.imageHint} />
+                <div className="aspect-video rounded-lg overflow-hidden relative shadow-inner border">
+                    <Image 
+                      src={mapImage.imageUrl} 
+                      alt="Favfare The Clinic location in Lagos, Nigeria" 
+                      fill 
+                      className="object-cover" 
+                      data-ai-hint={mapImage.imageHint} 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4">
+                        <h3 className="font-semibold">Favfare The Clinic</h3>
+                        <p className="text-sm text-muted-foreground">Lagos, Nigeria</p>
+                      </div>
+                    </div>
                 </div>
               )}
+              
+              <div className="mt-4 text-center">
+                <Button asChild variant="outline" size="sm">
+                  <a 
+                    href="https://maps.google.com/?q=Lagos,Nigeria" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Get Directions
+                  </a>
+                </Button>
+              </div>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
+      </div>
+
+      {/* Quick Action Section */}
+      <div className="max-w-4xl mx-auto mt-16 text-center">
+        <Card className="bg-primary/5 border-primary/20">
+          <CardContent className="p-8">
+            <h2 className="text-2xl md:text-3xl font-bold font-headline mb-4">
+              Ready to Transform Your Smile?
+            </h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Contact us today to schedule your consultation and take the first step towards a more confident smile.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg">
+                <Link href="/book-appointment">Book Appointment Now</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href="https://wa.me/2349169438645" target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5 mr-2" />
+                  Quick Chat on WhatsApp
+                </a>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
