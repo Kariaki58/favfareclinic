@@ -75,12 +75,31 @@ const faqs = [
     { question: "How soon can I get an appointment?", answer: "We typically have availability within 1-3 days. For urgent cases, we offer same-day appointments when possible. You can book online or contact us via WhatsApp for immediate assistance." },
 ];
 
+// Gallery images - you can replace these with your actual clinic photos
+const galleryImages = [
+  { id: 'gallery-1', description: 'Teeth whitening transformation result', imageUrl: '/dental_1.jpg' },
+  { id: 'gallery-2', description: 'Smile makeover before and after', imageUrl: '/dental_3.jpg' },
+  { id: 'gallery-3', description: 'Cosmetic dentistry beautiful smile', imageUrl: '/dental_4.jpg' },
+  { id: 'gallery-4', description: 'Professional teeth cleaning results', imageUrl: '/dental_5.jpg' },
+  { id: 'gallery-5', description: 'Dental veneers transformation', imageUrl: '/dental_6.jpg' },
+  { id: 'gallery-6', description: 'Teeth gap closure result', imageUrl: '/dental_7.jpg' },
+  { id: 'gallery-7', description: 'Hollywood smile makeover', imageUrl: '/dental_8.jpg' },
+  { id: 'gallery-8', description: 'Cosmetic dental bonding before after', imageUrl: '/dental_one.jpg' },
+];
+
+// Create a type for gallery items
+type GalleryItem = {
+  id: string;
+  description: string;
+  imageUrl: string;
+};
+
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
   const whyChooseImage = PlaceHolderImages.find((img) => img.id === 'why-choose-us');
   const highlightedServices = services.slice(0, 3);
   const popularServices = services.slice(0, 4);
-  const [selectedImage, setSelectedImage] = useState<ImagePlaceholder | null>(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
@@ -143,10 +162,6 @@ export default function Home() {
                   </CardHeader>
                   <CardContent className="pb-3">
                     <p className="text-sm text-muted-foreground mb-4">{service.shortDescription}</p>
-                    {/* <div className="flex items-center justify-center text-xs text-muted-foreground">
-                      <Clock className="h-3 w-3 mr-1" />
-                      {service.duration}
-                    </div> */}
                   </CardContent>
                   <CardFooter>
                     <Button asChild className="w-full">
@@ -211,10 +226,6 @@ export default function Home() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground mb-4">{service.shortDescription}</p>
-                    {/* <div className="flex items-center justify-center text-sm text-muted-foreground mb-4">
-                      <Clock className="h-4 w-4 mr-1" />
-                      {service.duration}
-                    </div> */}
                   </CardContent>
                   <CardFooter>
                     <Button asChild className="w-full">
@@ -227,46 +238,48 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Before & After Gallery Preview */}
+        {/* Gallery Showcase Section */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">
-                Real Smile Transformations
+                Smile Transformations Gallery
               </h2>
               <p className="mt-4 text-base md:text-lg text-muted-foreground">
-                See the real results our patients in Lagos have experienced at Favfare The Clinic.
+                See the beautiful results we've achieved for our clients at Favfare The Clinic in Lagos.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              {beforeAndAfters.slice(0, 4).map((item) => {
-                const beforeImg = PlaceHolderImages.find(p => p.id === item.beforeId);
-                const afterImg = PlaceHolderImages.find(p => p.id === item.afterId);
-                return (
-                  <div key={item.id} className="grid grid-cols-2 gap-2 group">
-                    {beforeImg && 
-                      <button onClick={() => setSelectedImage(beforeImg)} className="relative aspect-square focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg">
-                        <Image src={beforeImg.imageUrl} alt="Before smile" fill className="rounded-lg object-cover" data-ai-hint={beforeImg.imageHint}/>
-                        <Badge variant="secondary" className="absolute top-2 left-2">Before</Badge>
-                      </button>
-                    }
-                    {afterImg &&
-                      <button onClick={() => setSelectedImage(afterImg)} className="relative aspect-square focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg">
-                        <Image src={afterImg.imageUrl} alt="After smile" fill className="rounded-lg object-cover" data-ai-hint={afterImg.imageHint}/>
-                        <Badge className="absolute top-2 left-2">After</Badge>
-                      </button>
-                    }
-                  </div>
-                );
-              })}
+            
+            {/* 8 Image Grid - FIXED LAYOUT */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
+              {galleryImages.map((galleryItem) => (
+                <button
+                  key={galleryItem.id}
+                  onClick={() => setSelectedImage(galleryItem)}
+                  className="relative aspect-square rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-transform hover:scale-105"
+                >
+                  <Image
+                    src={galleryItem.imageUrl}
+                    alt={galleryItem.description}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors" />
+                </button>
+              ))}
             </div>
-             <div className="text-center mt-12">
-                <Button asChild size="lg" variant="outline">
-                  <a href="https://www.tiktok.com/@favfare" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                    <span>View More on TikTok</span>
-                    {/* You can add a TikTok icon here if you have one */}
-                  </a>
-                </Button>
+
+            <div className="text-center mt-12">
+              <Button asChild size="lg" variant="outline">
+                <a 
+                  href="https://www.tiktok.com/@favfare" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2"
+                >
+                  <span>View More Transformations on TikTok</span>
+                </a>
+              </Button>
             </div>
           </div>
         </section>
@@ -410,15 +423,21 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Image Modal with Better Close Button */}
         <Dialog open={!!selectedImage} onOpenChange={(isOpen) => !isOpen && setSelectedImage(null)}>
             {selectedImage && (
-                <DialogContent className="max-w-none w-screen h-screen p-0 border-0 bg-black/80 flex items-center justify-center">
-                    <DialogClose className="absolute right-4 top-4 z-50 rounded-full bg-white/20 p-2 text-white opacity-80 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                        <X className="h-6 w-6" />
+                <DialogContent className="max-w-none w-screen h-screen p-0 border-0 bg-black/95 flex items-center justify-center">
+                    <DialogClose className="absolute top-4 right-4 z-50 rounded-full bg-white/20 p-3 text-white hover:bg-white/30 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black md:top-6 md:right-6">
+                        <X className="h-6 w-6 md:h-8 md:w-8" />
                         <span className="sr-only">Close</span>
                     </DialogClose>
-                    <div className="relative w-full h-full max-w-4xl max-h-[80vh]">
-                        <Image src={selectedImage.imageUrl} alt={selectedImage.description} fill className="object-contain" data-ai-hint={selectedImage.imageHint}/>
+                    <div className="relative w-full h-full max-w-7xl max-h-[85vh] flex items-center justify-center p-4">
+                        <Image 
+                            src={selectedImage.imageUrl} 
+                            alt={selectedImage.description} 
+                            fill
+                            className="object-contain"
+                        />
                     </div>
                 </DialogContent>
             )}
