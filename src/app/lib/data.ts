@@ -86,31 +86,32 @@ export const services = [
 ];
 export const testimonials = [
   {
-    name: 'Sarah J.',
-    location: 'Smileville',
+    name: 'Amina O.',
+    location: '',
     quote: 'The best dental experience I have ever had. The staff is incredibly friendly and professional. My smile has never looked better!',
   },
   {
-    name: 'Michael B.',
-    location: 'Happyton',
+    name: 'Chinedu B.',
+    location: '',
     quote: 'Dr. Reed is a true artist. She explained everything clearly and made me feel at ease throughout the entire process. Highly recommend!',
   },
   {
-    name: 'Emily L.',
-    location: 'Smileville',
+    name: 'Ngozi L.',
+    location: '',
     quote: 'I was so nervous about getting implants, but the team at Fav Fare was amazing. The procedure was painless and the results are fantastic.',
   },
   {
-    name: 'David R.',
-    location: 'Grinburg',
+    name: 'Tunde R.',
+    location: '',
     quote: 'A clean, modern clinic with the latest technology. It\'s clear they care about providing the best for their patients. Five stars!',
   },
   {
-    name: 'Jessica P.',
-    location: 'Smileville',
+    name: 'Ifeoma P.',
+    location: '',
     quote: 'I bring my whole family here. They are wonderful with kids and make going to the dentist a positive experience for everyone.',
   },
 ];
+
 
 export const beforeAndAfters = [
   { id: 1, beforeId: 'before-1', afterId: 'after-1' },
