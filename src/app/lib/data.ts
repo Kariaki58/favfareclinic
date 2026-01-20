@@ -42,6 +42,20 @@ export const services = [
     duration: '1-2 hours',
   },
   {
+    title: 'gap tooth/alignment',
+    price: '₦25,000',
+    shortDescription: 'Close gaps between teeth for a more uniform smile.',
+    longDescription: 'Discreet and effective solution to close gaps between teeth using high-quality composite materials.',
+    duration: '1-2 hours',
+  },
+  {
+    title: 'Veneers',
+    price: 'From ₦6,000,000',
+    shortDescription: 'Enhance the shape, color, and alignment of your teeth for a brighter, more confident smile.',
+    longDescription: 'Veneers are thin, custom-crafted shells designed to cover the front surface of your teeth, instantly improving their appearance. They correct gaps, discoloration, uneven shapes, and minor misalignments, delivering a natural-looking and long-lasting smile transformation. Using premium dental materials, veneers provide strength, durability, and a flawless finish tailored to your facial features and smile goals.',
+    duration: '1-2 hours',
+  },
+  {
     title: 'Oral Detox Tongue Cleaning',
     price: "₦21,000",
     shortDescription: "Remove toxins and bacteria from your tongue to improve your overall health.",
