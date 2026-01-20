@@ -1,6 +1,13 @@
 'use server';
 
 import { z } from 'zod';
+import { Resend } from 'resend';
+
+// Initialize Resend with the API key
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+const ADMIN_EMAIL = 'Favfareclinic@gmail.com';
+const DEV_EMAIL = 'kariakistephen809@gmail.com';
 
 // Update the booking schema to match the new form structure
 const bookingSchema = z.object({
@@ -13,6 +20,13 @@ const bookingSchema = z.object({
   notes: z.string().optional(),
 });
 
+const contactSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  phone: z.string().optional(),
+  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+});
+
 export type BookingFormState = {
   message: string;
   errors?: {
@@ -23,6 +37,16 @@ export type BookingFormState = {
     phone?: string[];
     paymentOption?: string[];
     notes?: string[];
+  };
+};
+
+export type ContactFormState = {
+  message: string;
+  errors?: {
+    name?: string[];
+    email?: string[];
+    phone?: string[];
+    message?: string[];
   };
 };
 
@@ -74,15 +98,32 @@ export async function createBooking(
     };
   }
 
-  // Here you would typically save the data to a database
-  // and integrate with a booking system or send notifications
+  // Send Email Notification
+  try {
+    const { name, service, date, time, phone, paymentOption, notes } = validatedFields.data;
+    
+    await resend.emails.send({
+      from: 'Favfare Clinic <onboarding@favfare.com.ng>', // Should be a verified domain if possible, otherwise onboarding@resend.dev might work for testing if to logic allows, or the user needs to configure it. Assuming standard Resend usage.
+      to: ["Favfareclinic@gmail.com"],
+      subject: `New Appointment Request: ${name} - ${service}`,
+      html: `
+        <h2>New Appointment Request</h2>
+        <p><strong>Customer Name:</strong> ${name}</p>
+        <p><strong>Service:</strong> ${service}</p>
+        <p><strong>Date:</strong> ${date.toDateString()}</p>
+        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Payment Option:</strong> ${paymentOption}</p>
+        <p><strong>Notes:</strong> ${notes || 'None'}</p>
+      `
+    });
+    console.log('Booking email sent successfully');
+  } catch (error) {
+    console.error('Error sending booking email:', error);
+    // We don't fail the booking if email fails, but we should log it.
+  }
+
   console.log('Booking created:', validatedFields.data);
-
-  // Example: Send WhatsApp notification (you would implement this)
-  // await sendWhatsAppNotification(validatedFields.data);
-
-  // Example: Save to database (you would implement this)
-  // await saveBookingToDatabase(validatedFields.data);
 
   // This will be a successful state
   return {
@@ -90,27 +131,53 @@ export async function createBooking(
   };
 }
 
-// Example function to send WhatsApp notification
-async function sendWhatsAppNotification(bookingData: any) {
-  // This is where you would integrate with WhatsApp API
-  // For example, using the WhatsApp Business API or a service like Twilio
-  const message = `New Booking Request:
-Service: ${bookingData.service}
-Date: ${bookingData.date.toDateString()}
-Time: ${bookingData.time}
-Name: ${bookingData.name}
-Phone: ${bookingData.phone}
-Payment: ${bookingData.paymentOption}
-Notes: ${bookingData.notes || 'None'}`;
+export async function submitContactForm(
+  prevState: ContactFormState,
+  formData: FormData
+) {
+  const rawFormData = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    phone: formData.get('phone'),
+    message: formData.get('message'),
+  };
 
-  console.log('WhatsApp message:', message);
-  // Implement actual WhatsApp sending logic here
-}
+  const validatedFields = contactSchema.safeParse(rawFormData);
 
-// Example function to save to database
-async function saveBookingToDatabase(bookingData: any) {
-  // This is where you would save to your database
-  // For example, using Prisma, Drizzle, or any other ORM
-  console.log('Saving to database:', bookingData);
-  // Implement actual database saving logic here
+  if (!validatedFields.success) {
+    return {
+      message: 'Failed to send message. Please check your entries.',
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const { name, email, phone, message } = validatedFields.data;
+
+    const res = await resend.emails.send({
+      from: 'Favfare Clinic Contact <onboarding@favfare.com.ng>',
+      to: ["Favfareclinic@gmail.com"],
+      subject: `New Contact Message from ${name}`,
+      replyTo: email,
+      html: `
+        <h2>New Contact Message</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `
+    });
+    console.log(res);
+    console.log('Contact form email sent successfully');
+  } catch (error) {
+    console.error('Error sending contact email:', error);
+    return {
+      message: 'Failed to send email. Please try again later.',
+    };
+  }
+
+  return {
+    message: 'success',
+  };
 }

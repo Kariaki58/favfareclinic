@@ -10,10 +10,16 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Mail, MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, Clock, MessageCircle, Loader2 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useTransition } from 'react';
+import { submitContactForm } from '@/app/lib/actions';
+import { useToast } from '@/hooks/use-toast';
 
 const ContactForm = () => {
+    const [isPending, startTransition] = useTransition();
+    const { toast } = useToast();
+
     const formSchema = z.object({
         name: z.string().min(2, { message: "Name must be at least 2 characters." }),
         email: z.string().email({ message: "Please enter a valid email address." }),
@@ -32,10 +38,29 @@ const ContactForm = () => {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // In a real app, you'd handle form submission here
-        console.log(values);
-        alert("Thank you for your message! We will get back to you shortly.");
-        form.reset();
+        startTransition(async () => {
+            const formData = new FormData();
+            formData.append('name', values.name);
+            formData.append('email', values.email);
+            if (values.phone) formData.append('phone', values.phone);
+            formData.append('message', values.message);
+
+            const result = await submitContactForm({ message: '' }, formData);
+
+            if (result.message === 'success') {
+                toast({
+                    title: "Message Sent!",
+                    description: "Thank you for contacting us. We will get back to you shortly.",
+                });
+                form.reset();
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "Error",
+                    description: result.message || "Something went wrong. Please try again.",
+                });
+            }
+        });
     }
     
     return (
@@ -69,7 +94,16 @@ const ContactForm = () => {
                         <FormMessage />
                     </FormItem>
                 )} />
-                <Button type="submit" className="w-full">Send Message</Button>
+                <Button type="submit" className="w-full" disabled={isPending}>
+                    {isPending ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Sending...
+                        </>
+                    ) : (
+                        "Send Message"
+                    )}
+                </Button>
             </form>
         </Form>
     )
