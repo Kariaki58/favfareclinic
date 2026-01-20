@@ -77,14 +77,14 @@ const faqs = [
 
 // Gallery images - you can replace these with your actual clinic photos
 const galleryImages = [
-  { id: 'gallery-1', description: 'Teeth whitening transformation result', imageUrl: '/dental_1.jpg' },
+  { id: 'gallery-1', description: 'Teeth whitening transformation result', imageUrl: '/slime_3.jpeg' },
   { id: 'gallery-2', description: 'Smile makeover before and after', imageUrl: '/dental_3.jpg' },
   { id: 'gallery-3', description: 'Cosmetic dentistry beautiful smile', imageUrl: '/dental_4.jpg' },
   { id: 'gallery-4', description: 'Professional teeth cleaning results', imageUrl: '/dental_5.jpg' },
-  { id: 'gallery-5', description: 'Dental veneers transformation', imageUrl: '/dental_6.jpg' },
+  { id: 'gallery-5', description: 'Dental veneers transformation', imageUrl: '/slime_image.jpg' },
   { id: 'gallery-6', description: 'Teeth gap closure result', imageUrl: '/dental_7.jpg' },
   { id: 'gallery-7', description: 'Hollywood smile makeover', imageUrl: '/dental_8.jpg' },
-  { id: 'gallery-8', description: 'Cosmetic dental bonding before after', imageUrl: '/dental_one.jpg' },
+  { id: 'gallery-8', description: 'Cosmetic dental bonding before after', imageUrl: '/dentist_19.jpg' },
 ];
 
 // Create a type for gallery items

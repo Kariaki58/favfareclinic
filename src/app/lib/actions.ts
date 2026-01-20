@@ -6,9 +6,6 @@ import { Resend } from 'resend';
 // Initialize Resend with the API key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const ADMIN_EMAIL = 'Favfareclinic@gmail.com';
-const DEV_EMAIL = 'kariakistephen809@gmail.com';
-
 // Update the booking schema to match the new form structure
 const bookingSchema = z.object({
   service: z.string().min(1, 'Service is required'),
