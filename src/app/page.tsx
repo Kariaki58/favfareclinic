@@ -56,7 +56,7 @@ const serviceIcons = {
 
 const stats = [
     { value: '1,500+', label: 'Happy Patients', icon: Smile },
-    { value: '15+', label: 'Years of Experience', icon: Award },
+    { value: '5+', label: 'Years of Experience', icon: Award },
     { value: '500+', label: '5-Star Reviews', icon: Star },
     { value: '10,000+', label: 'Procedures Done', icon: Activity },
 ];

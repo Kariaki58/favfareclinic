@@ -94,8 +94,8 @@ export default function ContactPage() {
     },
     { 
       icon: Mail, 
-      text: 'nnabuifefavour8@gmail.com', 
-      href: 'mailto:nnabuifefavour8@gmail.com',
+      text: 'Favfareclinic@gmail.com', 
+      href: 'mailto:Favfareclinic@gmail.com',
       description: 'Send us an email'
     },
     { 

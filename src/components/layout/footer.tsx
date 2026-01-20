@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Logo } from './logo';
 import { Button } from '../ui/button';
-import { Facebook, Instagram, Twitter, MessageCircle, MapPin, Phone, Mail } from 'lucide-react';
+import { Instagram, MessageCircle, MapPin, Phone, Mail, Music } from 'lucide-react';
 
 const footerNavs = [
   { href: '/', label: 'Home' },
@@ -11,9 +11,9 @@ const footerNavs = [
 ];
 
 const socialLinks = [
-  { href: '#', icon: Facebook, label: 'Facebook' },
-  { href: '#', icon: Instagram, label: 'Instagram' },
-  { href: '#', icon: Twitter, label: 'Twitter' },
+  { href: 'https://www.instagram.com/favfareclinic?igsh=bDQ3ZW5iNzVwM25x', icon: Instagram, label: 'Instagram' },
+  { href: 'http://wa.me/2349169438645', icon: MessageCircle, label: 'WhatsApp' },
+  { href: 'https://www.tiktok.com/@favfare', icon: Music, label: 'TikTok' },
 ];
 
 export function Footer() {
@@ -62,8 +62,8 @@ export function Footer() {
               </div>
               <div className="flex items-start gap-2">
                 <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <a href="mailto:nnabuifefavour8@gmail.com" className="hover:text-primary transition-colors">
-                  nnabuifefavour8@gmail.com
+                <a href="mailto:Favfareclinic@gmail.com" className="hover:text-primary transition-colors">
+                  Favfareclinic@gmail.com
                 </a>
               </div>
               <div className="flex items-start gap-2">

@@ -1,7 +1,7 @@
 export const services = [
   {
     title: 'Teeth Whitening',
-    price: '₦39,000',
+    price: '₦35,000',
     shortDescription: 'Professional in-office whitening for a brighter, more confident smile.',
     longDescription: 'Our safe and effective teeth whitening treatment removes stains from coffee, tea, and aging, giving you noticeably whiter teeth in just one session.',
     duration: '1-2 hours',
@@ -42,6 +42,13 @@ export const services = [
     duration: '1-2 hours',
   },
   {
+    title: 'Oral Detox Tongue Cleaning',
+    price: "₦21,000",
+    shortDescription: "Remove toxins and bacteria from your tongue to improve your overall health.",
+    longDescription: "Remove toxins and bacteria from your tongue to improve your overall health.",
+    duration: "30 mins",
+  },
+  {
     title: 'Tooth Decay Treatment',
     price: '₦35,000',
     shortDescription: 'Professional treatment to stop decay and restore tooth health.',
@@ -71,14 +78,14 @@ export const services = [
   },
   {
     title: 'Fashion Braces',
-    price: '₦49,000',
+    price: '₦70,000',
     shortDescription: 'Stylish braces for fashion-conscious individuals.',
     longDescription: 'Colorful and fashionable braces that make orthodontic treatment fun and expressive.',
     duration: '18-24 months',
   },
   {
-    title: 'Ear Irrigation',
-    price: '₦25,000',
+    title: 'Ear spa',
+    price: '₦28,000',
     shortDescription: 'Safe and gentle ear wax removal service.',
     longDescription: 'Professional ear irrigation to safely remove excess ear wax and improve hearing comfort.',
     duration: '30 mins',

@@ -89,20 +89,20 @@ export default function AboutPage() {
               {dentistPortrait && (
                 <Image
                   src="/dentist_owner.jpeg"
-                  alt="Favour Nnabuihe - Founder of Favfare The Clinic"
+                  alt="Favour Nnabuife - Founder of Favfare The Clinic"
                   width={400}
                   height={400}
                   className="rounded-lg shadow-lg aspect-square object-cover mx-auto"
-                  data-ai-hint="Portrait of Favour Nnabuihe, founder and lead cosmetic dentist at Favfare The Clinic"
+                  data-ai-hint="Portrait of Favour Nnabuife, founder and lead cosmetic dentist at Favfare The Clinic"
                 />
               )}
             </div>
             <div className="md:col-span-3">
-              <h2 className="text-3xl md:text-4xl font-bold font-headline mb-2">Meet Favour Nnabuihe</h2>
+              <h2 className="text-3xl md:text-4xl font-bold font-headline mb-2">Meet Favour Nnabuife</h2>
               <p className="text-primary font-semibold mb-4">Founder & Lead Cosmetic Dentist</p>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Favour Nnabuihe is the passionate founder and lead cosmetic dentist at Favfare The Clinic. With extensive training and experience in cosmetic dentistry, Favour specializes in teeth whitening, smile aesthetics, and helping clients achieve their dream smiles.
+                  Favour Nnabuife is the passionate founder and lead cosmetic dentist at Favfare The Clinic. With extensive training and experience in cosmetic dentistry, Favour specializes in teeth whitening, smile aesthetics, and helping clients achieve their dream smiles.
                 </p>
                 <p>
                   "I believe that everyone deserves to feel confident about their smile. At Favfare The Clinic, we don't just transform teeth—we transform lives by boosting confidence and self-esteem through beautiful, natural-looking results."
@@ -227,8 +227,8 @@ export default function AboutPage() {
                 </div>
                 <div className="flex items-center justify-center gap-2">
                   <Mail className="h-4 w-4" />
-                  <a href="mailto:nnabuifefavour8@gmail.com" className="hover:text-primary transition-colors">
-                    nnabuifefavour8@gmail.com
+                  <a href="mailto:Favfareclinic@gmail.com" className="hover:text-primary transition-colors">
+                    Favfareclinic@gmail.com
                   </a>
                 </div>
               </div>
