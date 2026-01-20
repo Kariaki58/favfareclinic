@@ -265,7 +265,6 @@ export default function BookingForm() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="paystack">Book & Pay Online (Paystack)</SelectItem>
                             <SelectItem value="arrival">Pay on Arrival</SelectItem>
                           </SelectContent>
                         </Select>
