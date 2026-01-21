@@ -15,7 +15,7 @@ export const services = [
   },
   {
     title: 'Scaling & Polishing',
-    price: '₦20,000',
+    price: '₦15,000',
     shortDescription: 'Professional cleaning to remove plaque and tartar buildup.',
     longDescription: 'Thorough cleaning procedure that removes stubborn plaque and tartar, followed by polishing to make your teeth smooth and shiny.',
     duration: '45-60 mins',
