@@ -64,11 +64,11 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        <div className="fixed bottom-4 right-4 z-50 md:hidden">
+        {/* <div className="fixed bottom-4 right-4 z-50 md:hidden">
           <Button asChild size="lg" className="rounded-full shadow-lg">
             <Link href="/book-appointment">Book Appointment</Link>
           </Button>
-        </div>
+        </div> */}
         <Toaster />
       </body>
     </html>
