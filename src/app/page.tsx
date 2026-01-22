@@ -83,7 +83,7 @@ const galleryImages = [
   { id: 'gallery-4', description: 'Professional teeth cleaning results', imageUrl: '/dental_5.jpg' },
   { id: 'gallery-5', description: 'Dental veneers transformation', imageUrl: '/slime_image.jpg' },
   { id: 'gallery-6', description: 'Teeth gap closure result', imageUrl: '/dental_7.jpg' },
-  { id: 'gallery-7', description: 'Hollywood smile makeover', imageUrl: '/dental_8.jpg' },
+  { id: 'gallery-7', description: 'Hollywood smile makeover', imageUrl: '/images.jpeg' },
   { id: 'gallery-8', description: 'Cosmetic dental bonding before after', imageUrl: '/dentist_19.jpg' },
 ];
 
