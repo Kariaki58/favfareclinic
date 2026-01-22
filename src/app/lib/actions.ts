@@ -104,7 +104,7 @@ export async function createBooking(
     // Notify Clinic
     await resend.emails.send({
       from: 'Favfare Clinic <onboarding@favfare.com.ng>',
-      to: ["Favfareclinic@gmail.com", "kariakistephen809@gmail.com"],
+      to: ["Favfareclinic@gmail.com"],
       subject: `New Appointment Request: ${name} - ${service}`,
       replyTo: email,
       html: `
