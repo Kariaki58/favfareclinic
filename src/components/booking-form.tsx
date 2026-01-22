@@ -25,6 +25,7 @@ const formSchema = z.object({
   date: z.date({ required_error: 'Please select a date' }),
   time: z.string().min(1, 'Please select a time'),
   name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
   phone: z.string().min(10, 'Please enter a valid phone number'),
   paymentOption: z.string().min(1, 'Please select a payment option'),
   notes: z.string().optional(),
@@ -46,6 +47,7 @@ export default function BookingForm() {
       date: undefined,
       time: '',
       name: '',
+      email: '',
       phone: '',
       paymentOption: '',
       notes: '',
@@ -81,7 +83,7 @@ export default function BookingForm() {
     let fields: (keyof FormData)[] = [];
     if (step === 0) fields = ['service'];
     if (step === 1) fields = ['date', 'time'];
-    if (step === 2) fields = ['name', 'phone', 'paymentOption'];
+    if (step === 2) fields = ['name', 'email', 'phone', 'paymentOption'];
     
     const isValid = await form.trigger(fields);
     if (isValid) {
@@ -108,11 +110,31 @@ export default function BookingForm() {
           </p>
           <div className="bg-muted/50 rounded-lg p-4 text-left max-w-md mx-auto">
             <h3 className="font-semibold mb-2">Next Steps:</h3>
-            <ul className="text-sm space-y-1">
-              <li>• We'll call you within 24 hours to confirm</li>
-              <li>• Please keep your phone accessible</li>
-              <li>• Arrive 10 minutes early for your appointment</li>
+            <ul className="text-sm space-y-3 mb-4">
+              <li className="flex items-start">
+                <span className="mr-2">•</span>
+                <span>We've sent a confirmation email to your inbox.</span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-2">•</span>
+                <span><strong>CRITICAL:</strong> Please confirm your appointment via WhatsApp to finalize your slot.</span>
+              </li>
             </ul>
+            <Button 
+              className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold h-12"
+              onClick={() => {
+                const values = form.getValues();
+                const dateStr = values.date ? new Date(values.date).toDateString() : '';
+                const message = `Hello Favfare Clinic, I would like to confirm my booking for:
+- Service: ${values.service}
+- Date: ${dateStr}
+- Time: ${values.time}
+- Name: ${values.name}`;
+                window.open(`https://wa.me/2349169438645?text=${encodeURIComponent(message)}`, '_blank');
+              }}
+            >
+              Confirm via WhatsApp
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -122,7 +144,7 @@ export default function BookingForm() {
   const steps = [
     { title: "Select Service", description: "Choose your preferred cosmetic dentistry service", fields: ['service'] },
     { title: "Date & Time", description: "Select your preferred appointment slot", fields: ['date', 'time'] },
-    { title: "Your Details", description: "Provide your contact information", fields: ['name', 'phone', 'paymentOption'] }
+    { title: "Your Details", description: "Provide your contact information", fields: ['name', 'email', 'phone', 'paymentOption'] }
   ];
 
   const variants = {
@@ -245,6 +267,15 @@ export default function BookingForm() {
                       </FormItem>
                     )} />
 
+                    <FormField control={form.control} name="email" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-lg">Email Address</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="Enter your email address" {...field} className="h-12" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
                     <FormField control={form.control} name="phone" render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-lg">Phone Number</FormLabel>

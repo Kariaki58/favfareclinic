@@ -12,6 +12,7 @@ const bookingSchema = z.object({
   date: z.date({ required_error: 'Date is required' }),
   time: z.string().min(1, 'Time is required'),
   name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits'),
   paymentOption: z.string().min(1, 'Payment option is required'),
   notes: z.string().optional(),
@@ -80,6 +81,7 @@ export async function createBooking(
     date: date,
     time: formData.get('time'),
     name: formData.get('name'),
+    email: formData.get('email'),
     phone: formData.get('phone'),
     paymentOption: formData.get('paymentOption'),
     notes: formData.get('notes') || '',
@@ -97,15 +99,18 @@ export async function createBooking(
 
   // Send Email Notification
   try {
-    const { name, service, date, time, phone, paymentOption, notes } = validatedFields.data;
+    const { name, email, service, date, time, phone, paymentOption, notes } = validatedFields.data;
     
+    // Notify Clinic
     await resend.emails.send({
-      from: 'Favfare Clinic <onboarding@favfare.com.ng>', // Should be a verified domain if possible, otherwise onboarding@resend.dev might work for testing if to logic allows, or the user needs to configure it. Assuming standard Resend usage.
-      to: ["Favfareclinic@gmail.com"],
+      from: 'Favfare Clinic <onboarding@favfare.com.ng>',
+      to: ["Favfareclinic@gmail.com", "kariakistephen809@gmail.com"],
       subject: `New Appointment Request: ${name} - ${service}`,
+      replyTo: email,
       html: `
         <h2>New Appointment Request</h2>
         <p><strong>Customer Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
         <p><strong>Service:</strong> ${service}</p>
         <p><strong>Date:</strong> ${date.toDateString()}</p>
         <p><strong>Time:</strong> ${time}</p>
@@ -114,10 +119,39 @@ export async function createBooking(
         <p><strong>Notes:</strong> ${notes || 'None'}</p>
       `
     });
-    console.log('Booking email sent successfully');
+
+    // Send Confirmation to Client
+    await resend.emails.send({
+      from: 'Favfare Clinic <onboarding@favfare.com.ng>',
+      to: [email],
+      subject: `Booking Request Received - Favfare Clinic`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #1a1a1a;">Hello ${name},</h2>
+          <p>Thank you for choosing <strong>Favfare Clinic</strong>! We've received your booking request for <strong>${service}</strong>.</p>
+          
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0; color: #333;">Appointment Details:</h3>
+            <p style="margin: 5px 0;"><strong>Date:</strong> ${date.toDateString()}</p>
+            <p style="margin: 5px 0;"><strong>Time:</strong> ${time}</p>
+            <p style="margin: 5px 0;"><strong>Service:</strong> ${service}</p>
+          </div>
+
+          <p>Wait! To finalize your booking, please confirm your appointment via WhatsApp by clicking the button on the confirmation page or using our contact number.</p>
+          
+          <p>We look forward to seeing you!</p>
+          
+          <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+          <p style="font-size: 12px; color: #666;">
+            Favfare Clinic<br />
+            Phone: +234 916 943 8645
+          </p>
+        </div>
+      `
+    });
+    console.log('Booking emails sent successfully');
   } catch (error) {
-    console.error('Error sending booking email:', error);
-    // We don't fail the booking if email fails, but we should log it.
+    console.error('Error sending booking emails:', error);
   }
 
   console.log('Booking created:', validatedFields.data);

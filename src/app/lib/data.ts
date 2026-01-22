@@ -45,7 +45,7 @@ export const services = [
     title: 'gap tooth/alignment',
     price: '₦25,000',
     shortDescription: 'Close gaps between teeth for a more uniform smile.',
-    longDescription: 'Discreet and effective solution to close gaps between teeth using high-quality composite materials.',
+    longDescription: 'This service focuses on the shaping and positioning of the teeth to create a neater, more balanced, and attractive smile.',
     duration: '1-2 hours',
   },
   {
