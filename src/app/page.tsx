@@ -75,7 +75,6 @@ const faqs = [
     { question: "How soon can I get an appointment?", answer: "We typically have availability within 1-3 days. For urgent cases, we offer same-day appointments when possible. You can book online or contact us via WhatsApp for immediate assistance." },
 ];
 
-// Gallery images - you can replace these with your actual clinic photos
 const galleryImages = [
   { id: 'gallery-1', description: 'Teeth whitening transformation result', imageUrl: '/slime_3.jpeg' },
   { id: 'gallery-2', description: 'Smile makeover before and after', imageUrl: '/dental_3.jpg' },
