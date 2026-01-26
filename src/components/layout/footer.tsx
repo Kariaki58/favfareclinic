@@ -29,7 +29,8 @@ export function Footer() {
             </p>
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4" />
-              <span>Lagos, Nigeria</span>
+              <span>The Grenadines Homes, Lekki-Ajah
+            Cardinal Anthony Olubunmi Okogie Road, Lekki</span>
             </div>
           </div>
 

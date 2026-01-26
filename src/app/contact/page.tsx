@@ -118,7 +118,7 @@ export default function ContactPage() {
       icon: MapPin, 
       text: 'Lagos, Nigeria', 
       href: 'https://maps.google.com/?q=Lagos,Nigeria',
-      description: 'Visit our cosmetic dentistry clinic in Lagos'
+      description: 'The Grenadines Homes, Lekki-Ajah\nCardinal Anthony Olubunmi Okogie Road, Lekki'
     },
     { 
       icon: Phone, 
@@ -196,7 +196,9 @@ export default function ContactPage() {
                     ) : (
                       <p className="text-foreground font-medium whitespace-pre-line">{item.text}</p>
                     )}
-                    <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                    <p className="text-sm text-muted-foreground mt-1 whitespace-pre-line">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               ))}
