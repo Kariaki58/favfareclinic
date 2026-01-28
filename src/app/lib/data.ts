@@ -99,7 +99,7 @@ export const services = [
   },
   {
     title: 'Ear spa',
-    price: '₦28,000',
+    price: '₦18,000',
     shortDescription: 'Safe and gentle ear wax removal service.',
     longDescription: 'Professional ear irrigation to safely remove excess ear wax and improve hearing comfort.',
     duration: '30 mins',
