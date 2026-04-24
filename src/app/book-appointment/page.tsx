@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import BookingForm from '@/components/booking-form';
 import { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
