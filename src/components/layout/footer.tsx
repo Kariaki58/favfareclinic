@@ -81,7 +81,7 @@ export function Footer() {
                   Favfareclinic@gmail.com
                 </a>
               </div>
-              <div className="flex items-start gap-2">
+               <div className="flex items-start gap-2">
                 <MessageCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <a 
                   href="https://wa.me/2349169438645" 
