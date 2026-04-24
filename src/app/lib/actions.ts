@@ -3,7 +3,6 @@
 import { z } from 'zod';
 import { Resend } from 'resend';
 import { createClient } from '@/lib/supabase/server';
-import { createGoogleCalendarEvent } from '@/lib/google-calendar';
 
 // Initialize Resend with the API key
 // Initialize Resend with the API key, only if it exists to avoid runtime errors
@@ -183,23 +182,6 @@ export async function createBooking(
 
     if (dbError) {
       console.error('Database error saving booking:', dbError);
-    }
-
-    // 2. Sync to Google Calendar
-    const { data: settings } = await supabase
-      .from('admin_settings')
-      .select('google_refresh_token, is_calendar_enabled')
-      .single();
-
-    if (settings?.is_calendar_enabled && settings?.google_refresh_token) {
-      await createGoogleCalendarEvent(settings.google_refresh_token, {
-        customer_name: name,
-        customer_email: email,
-        service_title: service,
-        date: date.toISOString().split('T')[0],
-        time: time,
-      });
-      console.log('Synced to Google Calendar');
     }
   } catch (error) {
     console.error('Error in post-booking operations:', error);

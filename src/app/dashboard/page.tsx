@@ -46,7 +46,6 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const [isCalendarConnected, setIsCalendarConnected] = useState(false);
   
   // Pagination state
   const [bookingsPage, setBookingsPage] = useState(1);
@@ -67,7 +66,7 @@ export default function DashboardPage() {
         router.push('/login');
       } else {
         setUser(session.user);
-        await Promise.all([fetchServices(), fetchBookings(1), fetchGalleryImages(), fetchAdminSettings()]);
+        await Promise.all([fetchServices(), fetchBookings(1), fetchGalleryImages()]);
         setIsLoading(false);
       }
     };
@@ -145,21 +144,6 @@ export default function DashboardPage() {
     if (!error && data) {
       setGalleryImages(data);
     }
-  };
-
-  const fetchAdminSettings = async () => {
-    const { data, error } = await supabase
-      .from('admin_settings')
-      .select('*')
-      .single();
-    
-    if (!error && data) {
-      setIsCalendarConnected(!!data.google_refresh_token && data.is_calendar_enabled);
-    }
-  };
-
-  const handleConnectGoogle = () => {
-    window.location.href = '/api/auth/google';
   };
 
   const handleLogout = async () => {
@@ -336,7 +320,6 @@ export default function DashboardPage() {
               <TabsTrigger value="services" className="px-6 flex-1">Services</TabsTrigger>
               <TabsTrigger value="bookings" className="px-6 flex-1">Bookings</TabsTrigger>
               <TabsTrigger value="gallery" className="px-6 flex-1">Gallery</TabsTrigger>
-              <TabsTrigger value="calendar" className="px-6 flex-1">Calendar</TabsTrigger>
             </TabsList>
           </div>
 
@@ -610,54 +593,6 @@ export default function DashboardPage() {
             </div>
           </TabsContent>
 
-          {/* Calendar Tab */}
-          <TabsContent value="calendar" className="space-y-6">
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="md:col-span-2">
-                <CardHeader>
-                  <CardTitle>Appointment Calendar</CardTitle>
-                  <CardDescription>View your schedule and upcoming appointments.</CardDescription>
-                </CardHeader>
-                <CardContent className="h-[400px] flex items-center justify-center bg-muted/20 rounded-lg border-2 border-dashed">
-                  <div className="text-center">
-                    <CalendarDays className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground font-medium">Calendar Visualization</p>
-                    <p className="text-xs text-muted-foreground mt-1">Integrating with Google Calendar or Calendly...</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <div className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Connect Services</CardTitle>
-                    <CardDescription>Sync with your favorite calendar apps.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between p-3 border rounded-lg bg-background">
-                      <div className="flex items-center gap-3">
-                        <div className="bg-blue-500 p-2 rounded-md">
-                          <Calendar className="h-4 w-4 text-white" />
-                        </div>
-                        <div>
-                          <span className="text-sm font-medium block">Google Calendar</span>
-                          <span className="text-xs text-muted-foreground">
-                            {isCalendarConnected ? 'Connected & Syncing' : 'Not connected'}
-                          </span>
-                        </div>
-                      </div>
-                      {isCalendarConnected ? (
-                        <Badge variant="outline" className="text-emerald-500 border-emerald-500 bg-emerald-50">
-                          <CheckCircle2 className="h-3 w-3 mr-1" /> Active
-                        </Badge>
-                      ) : (
-                        <Button size="sm" variant="outline" onClick={handleConnectGoogle}>Connect</Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
           </TabsContent>
         </Tabs>
       </main>
