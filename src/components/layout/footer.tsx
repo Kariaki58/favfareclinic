@@ -1,7 +1,21 @@
 import Link from 'next/link';
 import { Logo } from './logo';
 import { Button } from '../ui/button';
-import { Instagram, MessageCircle, MapPin, Phone, Mail, Music } from 'lucide-react';
+import { Instagram, MessageCircle, MapPin, Phone, Mail, MessageSquare } from 'lucide-react';
+
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 const footerNavs = [
   { href: '/', label: 'Home' },
@@ -12,8 +26,8 @@ const footerNavs = [
 
 const socialLinks = [
   { href: 'https://www.instagram.com/favfareclinic?igsh=bDQ3ZW5iNzVwM25x', icon: Instagram, label: 'Instagram' },
-  { href: 'http://wa.me/2349169438645', icon: MessageCircle, label: 'WhatsApp' },
-  { href: 'https://www.tiktok.com/@favfare', icon: Music, label: 'TikTok' },
+  { href: 'http://wa.me/2349169438645', icon: MessageSquare, label: 'WhatsApp' },
+  { href: 'https://www.tiktok.com/@favfare', icon: TikTokIcon, label: 'TikTok' },
 ];
 
 export function Footer() {

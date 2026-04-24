@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { useEffect, useState } from 'react';
 import {
   ArrowRight,
   Sparkles,
@@ -94,10 +95,36 @@ type GalleryItem = {
 };
 
 export default function Home() {
+  const supabase = createClient();
+  const [dbServices, setDbServices] = useState<any[]>([]);
+  const [dbGallery, setDbGallery] = useState<any[]>([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const [{ data: servicesData }, { data: galleryData }] = await Promise.all([
+        supabase.from('services').select('*'),
+        supabase.from('gallery_images').select('*')
+      ]);
+      if (servicesData) setDbServices(servicesData);
+      if (galleryData) setDbGallery(galleryData);
+    };
+    fetchData();
+  }, [supabase]);
+
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-background');
   const whyChooseImage = PlaceHolderImages.find((img) => img.id === 'why-choose-us');
-  const highlightedServices = services.slice(0, 3);
-  const popularServices = services.slice(0, 4);
+  
+  // Use DB services if available, otherwise fallback to static data
+  const allServices = dbServices.length > 0 ? dbServices : services;
+  const highlightedServices = allServices.slice(0, 3);
+  const popularServices = allServices.slice(0, 4);
+  
+  // Combine static and DB gallery images
+  const allGalleryImages = [
+    ...dbGallery.map(img => ({ id: img.id, description: img.description || 'Transformation', imageUrl: img.url })),
+    ...galleryImages
+  ];
+
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
   return (
@@ -251,7 +278,7 @@ export default function Home() {
             
             {/* 8 Image Grid - FIXED LAYOUT */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
-              {galleryImages.map((galleryItem) => (
+              {allGalleryImages.slice(0, 8).map((galleryItem) => (
                 <button
                   key={galleryItem.id}
                   onClick={() => setSelectedImage(galleryItem)}

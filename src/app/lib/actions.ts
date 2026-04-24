@@ -2,9 +2,12 @@
 
 import { z } from 'zod';
 import { Resend } from 'resend';
+import { createClient } from '@/lib/supabase/server';
+import { createGoogleCalendarEvent } from '@/lib/google-calendar';
 
 // Initialize Resend with the API key
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend with the API key, only if it exists to avoid runtime errors
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Update the booking schema to match the new form structure
 const bookingSchema = z.object({
@@ -101,57 +104,105 @@ export async function createBooking(
   try {
     const { name, email, service, date, time, phone, paymentOption, notes } = validatedFields.data;
     
-    // Notify Clinic
-    await resend.emails.send({
-      from: 'Favfare Clinic <onboarding@favfare.com.ng>',
-      to: ["Favfareclinic@gmail.com"],
-      subject: `New Appointment Request: ${name} - ${service}`,
-      replyTo: email,
-      html: `
-        <h2>New Appointment Request</h2>
-        <p><strong>Customer Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Service:</strong> ${service}</p>
-        <p><strong>Date:</strong> ${date.toDateString()}</p>
-        <p><strong>Time:</strong> ${time}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Payment Option:</strong> ${paymentOption}</p>
-        <p><strong>Notes:</strong> ${notes || 'None'}</p>
-      `
-    });
+    if (resend) {
+      // Notify Clinic
+      await resend.emails.send({
+        from: 'Favfare Clinic <onboarding@favfare.com.ng>',
+        to: ["Favfareclinic@gmail.com"],
+        subject: `New Appointment Request: ${name} - ${service}`,
+        replyTo: email,
+        html: `
+          <h2>New Appointment Request</h2>
+          <p><strong>Customer Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Service:</strong> ${service}</p>
+          <p><strong>Date:</strong> ${date.toDateString()}</p>
+          <p><strong>Time:</strong> ${time}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Payment Option:</strong> ${paymentOption}</p>
+          <p><strong>Notes:</strong> ${notes || 'None'}</p>
+        `
+      });
 
-    // Send Confirmation to Client
-    await resend.emails.send({
-      from: 'Favfare Clinic <onboarding@favfare.com.ng>',
-      to: [email],
-      subject: `Booking Request Received - Favfare Clinic`,
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-          <h2 style="color: #1a1a1a;">Hello ${name},</h2>
-          <p>Thank you for choosing <strong>Favfare Clinic</strong>! We've received your booking request for <strong>${service}</strong>.</p>
-          
-          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #333;">Appointment Details:</h3>
-            <p style="margin: 5px 0;"><strong>Date:</strong> ${date.toDateString()}</p>
-            <p style="margin: 5px 0;"><strong>Time:</strong> ${time}</p>
-            <p style="margin: 5px 0;"><strong>Service:</strong> ${service}</p>
+      // Send Confirmation to Client
+      await resend.emails.send({
+        from: 'Favfare Clinic <onboarding@favfare.com.ng>',
+        to: [email],
+        subject: `Booking Request Received - Favfare Clinic`,
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+            <h2 style="color: #1a1a1a;">Hello ${name},</h2>
+            <p>Thank you for choosing <strong>Favfare Clinic</strong>! We've received your booking request for <strong>${service}</strong>.</p>
+            
+            <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="margin-top: 0; color: #333;">Appointment Details:</h3>
+              <p style="margin: 5px 0;"><strong>Date:</strong> ${date.toDateString()}</p>
+              <p style="margin: 5px 0;"><strong>Time:</strong> ${time}</p>
+              <p style="margin: 5px 0;"><strong>Service:</strong> ${service}</p>
+            </div>
+
+            <p>Wait! To finalize your booking, please confirm your appointment via WhatsApp by clicking the button on the confirmation page or using our contact number.</p>
+            
+            <p>We look forward to seeing you!</p>
+            
+            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #666;">
+              Favfare Clinic<br />
+              Phone: +234 916 943 8645
+            </p>
           </div>
-
-          <p>Wait! To finalize your booking, please confirm your appointment via WhatsApp by clicking the button on the confirmation page or using our contact number.</p>
-          
-          <p>We look forward to seeing you!</p>
-          
-          <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
-          <p style="font-size: 12px; color: #666;">
-            Favfare Clinic<br />
-            Phone: +234 916 943 8645
-          </p>
-        </div>
-      `
-    });
+        `
+      });
+    } else {
+      console.warn('RESEND_API_KEY is missing. Skipping email notifications.');
+    }
     console.log('Booking emails sent successfully');
   } catch (error) {
     console.error('Error sending booking emails:', error);
+  }
+
+  // Save to Database & Sync to Google Calendar
+  try {
+    const supabase = await createClient();
+    const { name, email, service, date, time, notes } = validatedFields.data;
+
+    // 1. Save to Supabase
+    const { data: bookingData, error: dbError } = await supabase
+      .from('bookings')
+      .insert([{
+        customer_name: name,
+        customer_email: email,
+        service_title: service,
+        date: date.toISOString().split('T')[0],
+        time: time,
+        notes: notes,
+        status: 'pending'
+      }])
+      .select()
+      .single();
+
+    if (dbError) {
+      console.error('Database error saving booking:', dbError);
+    }
+
+    // 2. Sync to Google Calendar
+    const { data: settings } = await supabase
+      .from('admin_settings')
+      .select('google_refresh_token, is_calendar_enabled')
+      .single();
+
+    if (settings?.is_calendar_enabled && settings?.google_refresh_token) {
+      await createGoogleCalendarEvent(settings.google_refresh_token, {
+        customer_name: name,
+        customer_email: email,
+        service_title: service,
+        date: date.toISOString().split('T')[0],
+        time: time,
+      });
+      console.log('Synced to Google Calendar');
+    }
+  } catch (error) {
+    console.error('Error in post-booking operations:', error);
   }
 
   console.log('Booking created:', validatedFields.data);
@@ -185,20 +236,24 @@ export async function submitContactForm(
   try {
     const { name, email, phone, message } = validatedFields.data;
 
-    const res = await resend.emails.send({
-      from: 'Favfare Clinic Contact <onboarding@favfare.com.ng>',
-      to: ["Favfareclinic@gmail.com"],
-      subject: `New Contact Message from ${name}`,
-      replyTo: email,
-      html: `
-        <h2>New Contact Message</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `
-    });
+    if (resend) {
+      await resend.emails.send({
+        from: 'Favfare Clinic Contact <onboarding@favfare.com.ng>',
+        to: ["Favfareclinic@gmail.com"],
+        subject: `New Contact Message from ${name}`,
+        replyTo: email,
+        html: `
+          <h2>New Contact Message</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `
+      });
+    } else {
+      console.warn('RESEND_API_KEY is missing. Skipping contact email.');
+    }
     console.log(res);
     console.log('Contact form email sent successfully');
   } catch (error) {
