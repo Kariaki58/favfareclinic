@@ -236,8 +236,6 @@ export async function submitContactForm(
     } else {
       console.warn('RESEND_API_KEY is missing. Skipping contact email.');
     }
-    console.log(res);
-    console.log('Contact form email sent successfully');
   } catch (error) {
     console.error('Error sending contact email:', error);
     return {
