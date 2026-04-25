@@ -23,7 +23,6 @@ import {
   User,
   Phone,
   Mail,
-  CalendarDays,
   PlusCircle,
   LogOut,
   Loader2,
@@ -591,8 +590,6 @@ export default function DashboardPage() {
                 </div>
               )}
             </div>
-          </TabsContent>
-
           </TabsContent>
         </Tabs>
       </main>
