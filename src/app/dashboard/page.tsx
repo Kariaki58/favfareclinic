@@ -3,6 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import { createClient } from '@/lib/supabase/client';
+import { getCurrentUserWithRole } from '@/lib/supabase/profile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { 
@@ -61,10 +62,24 @@ export default function DashboardPage() {
   useEffect(() => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      const user = session?.user;
+
+      if (!user) {
         router.push('/login');
       } else {
-        setUser(session.user);
+        setUser(user);
+        const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+        const userEmail = user.email?.toLowerCase();
+        
+        if (!userEmail || !adminEmails.includes(userEmail)) {
+          toast({
+            title: 'Access Denied',
+            description: 'You do not have permission to view the dashboard.',
+            variant: 'destructive',
+          });
+          router.push('/login');
+          return;
+        }
         await Promise.all([fetchServices(), fetchBookings(1), fetchGalleryImages()]);
         setIsLoading(false);
       }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { useForm, type FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,7 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from '@/components/ui/textarea';
-import { services, timeSlots } from '@/app/lib/data';
+import { timeSlots } from '@/app/lib/data';
+import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
 import { CheckCircle, Loader2, CalendarIcon, Clock } from 'lucide-react';
 import { createBooking } from '@/app/lib/actions';
@@ -39,6 +40,8 @@ export default function BookingForm() {
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedService, setSelectedService] = useState<any>(null);
+  const [servicesList, setServicesList] = useState<any[]>([]);
+  const supabase = createClient();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -53,6 +56,17 @@ export default function BookingForm() {
       notes: '',
     },
   });
+
+  // Fetch services on component mount
+  useEffect(() => {
+    const fetchServices = async () => {
+      const { data, error } = await supabase.from('services').select('*');
+      if (!error && data) {
+        setServicesList(data);
+      }
+    };
+    fetchServices();
+  }, []);
 
   const onSubmit = async (data: FormData) => {
     startTransition(async () => {
@@ -95,7 +109,7 @@ export default function BookingForm() {
 
   const handleServiceChange = (value: string) => {
     form.setValue('service', value);
-    const service = services.find(s => s.title === value);
+    const service = servicesList.find(s => s.title === value || s.title === value);
     setSelectedService(service);
   };
 
@@ -183,7 +197,7 @@ export default function BookingForm() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {services.map((service) => (
+                            {servicesList.map((service) => (
                               <SelectItem key={service.title} value={service.title} className="py-3">
                                 <div className="flex justify-between items-center w-full">
                                   <span>{service.title}</span>
@@ -206,7 +220,7 @@ export default function BookingForm() {
                           <Clock className="h-4 w-4 mr-1" />
                           <span>{selectedService.duration}</span>
                         </div> */}
-                        <p className="text-sm text-muted-foreground">{selectedService.longDescription}</p>
+                        <p className="text-sm text-muted-foreground">{selectedService?.longDescription || selectedService?.short_description || ''}</p>
                       </div>
                     )}
                   </div>

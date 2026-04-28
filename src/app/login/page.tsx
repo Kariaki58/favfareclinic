@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { syncUserProfile } from '@/app/lib/actions'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -24,10 +25,12 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
+
+    console.log({ data, error })
 
     if (error) {
       toast({
@@ -37,6 +40,23 @@ export default function LoginPage() {
       })
       setLoading(false)
     } else {
+      // Ensure the profiles table row exists via server action
+      if (data.user) {
+        const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+        const userEmail = data.user.email?.toLowerCase();
+        
+        if (!userEmail || !adminEmails.includes(userEmail)) {
+          toast({
+            title: 'Access Denied',
+            description: 'Only administrators are allowed to access this dashboard.',
+            variant: 'destructive',
+          })
+          await supabase.auth.signOut()
+          setLoading(false)
+          return
+        }
+      }
+      
       router.push('/dashboard')
       router.refresh()
     }

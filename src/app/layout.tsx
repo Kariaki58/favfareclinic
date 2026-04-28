@@ -54,21 +54,16 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="font-body bg-background text-foreground antialiased">
+      <body className="font-body bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        {/* <div className="fixed bottom-4 right-4 z-50 md:hidden">
-          <Button asChild size="lg" className="rounded-full shadow-lg">
-            <Link href="/book-appointment">Book Appointment</Link>
-          </Button>
-        </div> */}
         <Toaster />
       </body>
     </html>

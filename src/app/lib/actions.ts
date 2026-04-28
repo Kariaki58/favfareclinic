@@ -3,6 +3,42 @@
 import { z } from 'zod';
 import { Resend } from 'resend';
 import { createClient } from '@/lib/supabase/server';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+
+export async function syncUserProfile(userId: string, role: string = 'user') {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!url || !serviceKey) {
+    throw new Error('Missing Supabase environment variables');
+  }
+  
+  const supabaseAdmin = createSupabaseClient(url, serviceKey);
+  
+  // Check if profile exists
+  const { data } = await supabaseAdmin
+    .from('profiles')
+    .select('id')
+    .eq('id', userId)
+    .single();
+
+  if (!data) {
+    // Create profile using admin rights
+    const { error } = await supabaseAdmin
+      .from('profiles')
+      .insert({
+        id: userId,
+        role: role,
+        full_name: '',
+        avatar_url: ''
+      });
+      
+    if (error) {
+      console.error('Admin profile sync error:', error);
+      throw error;
+    }
+  }
+}
 
 // Initialize Resend with the API key
 // Initialize Resend with the API key, only if it exists to avoid runtime errors

@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic'
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { syncUserProfile } from '@/app/lib/actions'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -24,7 +25,7 @@ export default function SignupPage() {
     e.preventDefault()
     setLoading(true)
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     })
@@ -37,6 +38,15 @@ export default function SignupPage() {
       })
       setLoading(false)
     } else {
+      // Create profile row for new user via server action
+      if (data.user) {
+        try {
+          await syncUserProfile(data.user.id, 'user') 
+        } catch (profileErr) {
+          console.error('Error creating profile:', profileErr)
+        }
+      }
+
       toast({
         title: 'Success',
         description: 'Account created! You can now login.',
