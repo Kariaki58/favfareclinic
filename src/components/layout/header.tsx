@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { Logo } from './logo';
 import { cn } from '@/lib/utils';
+import { createClient } from '@/lib/supabase/client';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -20,6 +21,35 @@ export function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      const user = session?.user;
+      if (user?.email) {
+        const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+        setIsAdmin(adminEmails.includes(user.email.toLowerCase()));
+      } else {
+        setIsAdmin(false);
+      }
+    };
+    
+    checkAdmin();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      const user = session?.user;
+      if (user?.email) {
+        const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+        setIsAdmin(adminEmails.includes(user.email.toLowerCase()));
+      } else {
+        setIsAdmin(false);
+      }
+    });
+    
+    return () => subscription.unsubscribe();
+  }, [supabase]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,9 +94,15 @@ export function Header() {
 
           <div className="flex items-center gap-4">
             {/* Desktop CTA */}
-            <Button asChild className="hidden md:flex rounded-full px-6 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-              <Link href="/book-appointment">Book Appointment</Link>
-            </Button>
+            {isAdmin ? (
+              <Button asChild className="hidden md:flex rounded-full px-6 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20">
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
+            ) : (
+              <Button asChild className="hidden md:flex rounded-full px-6 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <Link href="/book-appointment">Book Appointment</Link>
+              </Button>
+            )}
             
             {/* Mobile Navigation Trigger */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -99,9 +135,15 @@ export function Header() {
                       </Link>
                     ))}
                   </nav>
-                  <Button asChild className="mt-auto rounded-full h-14 text-lg mb-6 shadow-xl" size="lg">
-                    <Link href="/book-appointment" onClick={() => setIsMobileMenuOpen(false)}>Book Appointment</Link>
-                  </Button>
+                  {isAdmin ? (
+                    <Button asChild className="mt-auto rounded-full h-14 text-lg mb-6 shadow-xl bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20" size="lg">
+                      <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
+                    </Button>
+                  ) : (
+                    <Button asChild className="mt-auto rounded-full h-14 text-lg mb-6 shadow-xl" size="lg">
+                      <Link href="/book-appointment" onClick={() => setIsMobileMenuOpen(false)}>Book Appointment</Link>
+                    </Button>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
