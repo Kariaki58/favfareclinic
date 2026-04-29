@@ -119,8 +119,35 @@ export default function Home() {
   
   // Use DB services if available, otherwise fallback to static data
   const allServices = dbServices.length > 0 ? dbServices : services;
+  
+  // Sort services to prioritize Teeth Whitening and Scaling first for the "Affordable Smile Transformations" section
+  const priorityPopular: any[] = [];
+  
+  // Find the teeth whitening service
+  const teethWhitening = allServices.find(s => 
+    s.title.toLowerCase().includes('teeth whitening') && 
+    !s.title.toLowerCase().includes('hollywood')
+  );
+  if (teethWhitening) priorityPopular.push(teethWhitening);
+
+  // Find the scaling service
+  const scalingAndPolishing = allServices.find(s => 
+    s.title.toLowerCase().includes('scaling') && 
+    !s.title.toLowerCase().includes('stain')
+  );
+  if (scalingAndPolishing) priorityPopular.push(scalingAndPolishing);
+
+  // Add remaining services to the priority list
+  allServices.forEach(s => {
+    const isAlreadyAdded = priorityPopular.some(p => (p.id && s.id && p.id === s.id) || p.title === s.title);
+    // Exclude veneers and extraction from the top if possible, or just let them be pushed to the end
+    if (!isAlreadyAdded) {
+      priorityPopular.push(s);
+    }
+  });
+
+  const popularServices = priorityPopular.slice(0, 4);
   const highlightedServices = allServices.slice(0, 3);
-  const popularServices = allServices.slice(0, 4);
   
   // Combine static and DB gallery images
   const allGalleryImages = [
